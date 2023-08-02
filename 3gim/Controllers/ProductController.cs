@@ -8,5 +8,10 @@ namespace _3gim.Controllers
         {
             return View();
         }
+
+        public IActionResult Count()
+        {
+            return View();
+        }
     }
 }
