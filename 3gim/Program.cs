@@ -1,7 +1,16 @@
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<MyDbContext>(
+    options => options.UseMySql(connection, ServerVersion.AutoDetect(connection))
+);
+
+
 
 var app = builder.Build();
 
@@ -20,4 +29,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+app.Run("http://0.0.0.0:3333");
