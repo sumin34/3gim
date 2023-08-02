@@ -13,5 +13,9 @@ namespace _3gim.Controllers
         {
             return View();
         }
+        public IActionResult Order()
+        {
+            return View();
+        }
     }
 }
