@@ -17,19 +17,19 @@
 
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Signup</h3></div>
                                 <div class="card-body">
-                                    <form>
+                                    <form action="/member/signup" method="post">
 
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputName" type="text" placeholder="Name" />
+                                            <input class="form-control" name="name" id="inputName" type="text" placeholder="Name" />
                                             <label for="inputPassword">Name</label>
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputId" type="email" placeholder="Id" />
+                                            <input class="form-control" name="email" id="inputId" type="email" placeholder="email" />
                                             <label for="inputEmail">Email address</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                            <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Password" />
                                             <label for="inputPassword">Password</label>
                                         </div>
 
