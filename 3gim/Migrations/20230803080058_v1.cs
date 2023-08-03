@@ -65,7 +65,7 @@ namespace _3gim.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUsers", x => x.UserName);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
