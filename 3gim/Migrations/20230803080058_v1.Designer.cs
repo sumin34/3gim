@@ -11,7 +11,7 @@ using _3gim.Data;
 namespace _3gim.Migrations
 {
     [DbContext(typeof(_3gimDbContext))]
-    [Migration("20230802055403_v1")]
+    [Migration("20230803080058_v1")]
     partial class v1
     {
         /// <inheritdoc />
