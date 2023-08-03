@@ -30,25 +30,39 @@ namespace _3gim.Controllers
         [HttpPost("signup")]
         public async Task<IActionResult> Signup(Signup model)
         {
-            var user = new _3gimMember
+            var user = new _3gimMember    
 
-            { UserName = model.name, Email = model.email };
+            { Id=model.name, UserName = model.id, Email = model.email };
 
             var result = await _userManager.CreateAsync(user, model.password);
 
             if (result.Succeeded)
             {
-                return Redirect("/home/index");
+                return Redirect("/member/login");
             }
 
 
             return Redirect("/member/signup");
         }
 
-
+        [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(Login model)
+        {
+            var result = await _signInManager.PasswordSignInAsync(
+                model.Id, model.Password, false, false);
+
+            if (result.Succeeded)
+            {
+                return Redirect("/home/index");
+            }
+
+            return Redirect("/member/login");
         }
 
     }

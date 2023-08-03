@@ -17,5 +17,20 @@ namespace _3gim.Controllers
         {
             return View();
         }
+        public IActionResult Productquantity()
+        {
+            return View();
+        }
+
+        public IActionResult Productedit()
+        {
+            return View();
+        }
+        
+         public IActionResult Productregist()
+        {
+            return View();
+        }
+
     }
 }
