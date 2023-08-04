@@ -2,6 +2,7 @@
 
 namespace _3gim.Controllers
 {
+    [Route("product")]
     public class ProductController : Controller
     {
         public IActionResult Print()
@@ -26,11 +27,19 @@ namespace _3gim.Controllers
         {
             return View();
         }
-        
+
+        [HttpGet("productregist")]
          public IActionResult Productregist()
         {
             return View();
         }
 
+        [HttpPost("productregist")]
+        public IActionResult Productregist(string productname, int exp)
+        {
+            return View();
+        }
+
+      
     }
 }
