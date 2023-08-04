@@ -160,6 +160,9 @@ namespace _3gim.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("ProductPrice")
+                        .HasColumnType("int");
+
                     b.HasKey("ProductID");
 
                     b.ToTable("Product");

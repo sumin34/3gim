@@ -19,17 +19,40 @@ namespace _3gim.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("print")]
-        public IActionResult Print()
+        [HttpGet("Regist")]
+        public IActionResult Regist()
         {
             return View();
         }
 
-        [HttpGet("Count")]
-        public IActionResult Count()
+        [HttpPost("Regist")]
+        public IActionResult Regist(Product product)
         {
-            return View();
+            _dbContext.Add(product);
+
+            _dbContext.SaveChanges();
+
+            return Redirect("/product/Regist");
         }
+
+        [HttpGet("read/{productname}")]
+        public IActionResult Read(string productname)
+        {
+            var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
+
+            return View(result);
+        }
+
+        [HttpGet("delete/{productname}")]
+        public IActionResult Delete(string productname)
+        {
+            var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
+            _dbContext.Remove(result);
+            _dbContext.SaveChanges();
+            
+            return View(result);
+        }
+
 
         [HttpGet("Order")]
         public IActionResult Order()
@@ -37,34 +60,20 @@ namespace _3gim.Controllers
             return View();
         }
 
-        [HttpGet("Productquantity")]
-        public IActionResult Productquantity()
+        [HttpGet("Quantity")]
+        public IActionResult Quantity()
         {
             return View();
         }
 
-        [HttpGet("productedit")]
-        public IActionResult Productedit()
+        [HttpGet("Edit")]
+        public IActionResult Edit()
         {
             return View();
         }
 
-        [HttpGet("productregist")]
-         public IActionResult Productregist()
-        {
-            return View();
-        }
+        
 
-        [HttpPost("productregist")]
-        public IActionResult Productregist(Product product)
-        {
-            _dbContext.Add(product);
 
-            _dbContext.SaveChanges();
-
-            return Redirect("/product/productregist");
-        }
-
-      
     }
 }
