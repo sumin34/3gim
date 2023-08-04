@@ -77,6 +77,7 @@ namespace _3gim.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProductName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProductPrice = table.Column<int>(type: "int", nullable: false),
                     ProductExp = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
