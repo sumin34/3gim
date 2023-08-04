@@ -35,6 +35,14 @@ namespace _3gim.Controllers
             return Redirect("/product/Regist");
         }
 
+        [HttpGet("list")]
+        public IActionResult List()
+        {
+            var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
+
+            return View(result);
+        }
+
         [HttpGet("read/{productname}")]
         public IActionResult Read(string productname)
         {
