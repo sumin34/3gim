@@ -74,9 +74,16 @@ namespace _3gim.Controllers
             return View();
         }
 
-        [HttpGet("Edit")]
-        public IActionResult Edit()
+        [HttpPost("Edit")]
+        public IActionResult Edit(Product product)
         {
+            var result = _dbContext.Product.Where(p => p.ProductID == product.ProductID).FirstOrDefault();
+            result.ProductName = product.ProductName;
+            result.ProductPrice = product.ProductPrice;
+            result.ProductExp = product.ProductExp;
+
+            _dbContext.SaveChanges();
+
             return View();
         }
 
