@@ -3,6 +3,7 @@ using _3gim.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace _3gim.Controllers
 {
@@ -51,7 +52,7 @@ namespace _3gim.Controllers
             return View(result);
         }
 
-        [HttpGet("delete/{productname}")]
+        [HttpPost("delete/{productname}")]
         public IActionResult Delete(string productname)
         {
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
@@ -65,13 +66,15 @@ namespace _3gim.Controllers
         [HttpGet("Order")]
         public IActionResult Order()
         {
-            return View();
+            var result = _dbContext.Product.Include(p => p.Release).ToList();
+            return View(result);
         }
 
         [HttpGet("Quantity")]
         public IActionResult Quantity()
         {
-            return View();
+            var result = _dbContext.Product.Include(p=>p.Store).ToList();
+            return View(result);
         }
 
         [HttpPost("Edit")]
