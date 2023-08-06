@@ -20,20 +20,20 @@ namespace _3gim.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("Regist")]
+        [HttpGet("regist")]
         public IActionResult Regist()
         {
             return View();
         }
 
-        [HttpPost("Regist")]
+        [HttpPost("regist")]
         public IActionResult Regist(Product product)
         {
             _dbContext.Add(product);
 
             _dbContext.SaveChanges();
 
-            return Redirect("/product/Regist");
+            return Redirect("/product/list");
         }
 
         [HttpGet("list")]
@@ -59,25 +59,34 @@ namespace _3gim.Controllers
             _dbContext.Remove(result);
             _dbContext.SaveChanges();
             
-            return View(result);
+            return View();
         }
 
 
-        [HttpGet("Order")]
+        [HttpGet("order")]
         public IActionResult Order()
         {
             var result = _dbContext.Product.Include(p => p.Release).ToList();
             return View(result);
         }
 
-        [HttpGet("Quantity")]
+        [HttpPost("order")]
+        public IActionResult Order(Release release)
+        {
+            var result = _dbContext.Release.Where(r=> r.ProductID == release.ProductID).FirstOrDefault();
+            _dbContext.Add(result);
+            _dbContext.SaveChanges();
+            return View();
+        }
+
+        [HttpGet("quantity")]
         public IActionResult Quantity()
         {
             var result = _dbContext.Product.Include(p=>p.Store).ToList();
             return View(result);
         }
 
-        [HttpPost("Edit")]
+        [HttpPost("edit")]
         public IActionResult Edit(Product product)
         {
             var result = _dbContext.Product.Where(p => p.ProductID == product.ProductID).FirstOrDefault();
@@ -90,7 +99,25 @@ namespace _3gim.Controllers
             return View();
         }
 
-        
+        [HttpGet("listedit")]
+        public IActionResult ListEdit()
+        {
+            return View();
+        }
+
+
+        [HttpPost("listedit")]
+        public IActionResult ListEdit(Store store)
+        {
+            var result = _dbContext.Store.Where(s => s.ProductID == s.ProductID).FirstOrDefault();
+            result.ProductionDate = store.ProductionDate;
+            result.ProductQuantity = store.ProductQuantity;
+            result.Remarks = store.Remarks;
+
+            _dbContext.SaveChanges();
+
+            return View();
+        }
 
 
     }
