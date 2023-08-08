@@ -26,6 +26,7 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
                                 <input type="text" class="form-control" placeholder="Product Name Search..">
+                                <button class="btn btn-outline-info"> 조회 </button>
                             </div>
                         </form>
                         <div class="datatable-container">
@@ -53,8 +54,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <form action="/product/Edit" method="post">
-                            
+                        <form action="/product/edit" method="post" name="removeEdit">
+
                             <div clsaa="card-body">
 
                                 <h3>수정할 정보</h3>
@@ -62,37 +63,40 @@
                                 <ul>
                                     <li>
                                         상품 번호
-                                        <table id="ProductIDEdit" class="datatable-table">
-                                            <tbody>
-                                                <tr data-index="0">
-                                                    <td>원래 상품 번호 출력</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductID" id="ProductIDEdit" type="text" placeholder="원래 상품 번호 출력">
+                                        </div>
                                     </li>
+                                    <br />
                                     <li>
                                         상품명
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductNameEdit" id="ProductName" type="text" placeholder="원래 상품 이름 출력">
+                                            <input class="form-control" name="ProductName" id="ProductNameEdit" type="text" placeholder="원래 상품 이름 출력">
                                         </div>
                                     </li>
+                                    <br />
                                     <li>
                                         상품 가격
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductPriceEdit" id="ProductPrice" type="text" placeholder="원래 가격 출력">
+                                            <input class="form-control" name="ProductPrice" id="ProductPriceEdit" type="text" placeholder="원래 가격 출력">
                                         </div>
                                     </li>
+                                    <br />
                                     <li>
                                         유통 기한
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductExpEdit" id="ProductExp" type="text" placeholder="원래 유통기한 출력">
+                                            <input class="form-control" name="ProductExp" id="ProductExpEdit" type="text" placeholder="원래 유통기한 출력">
                                         </div>
                                     </li>
+                                    <br />
 
                                 </ul>
 
                                 <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                     <button class="btn btn-secondary">수정하기</button>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <input id="delButton" type="button" class="btn btn-danger" value="삭 제" placeholder="삭 제" onclick="delEdit()">
                                 </div>
                             </div>
                         </form>
@@ -105,3 +109,14 @@
     </div>
 
 </main>
+
+<script>
+    function delEdit(){
+        if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+            document.removeEdit.submit();
+        } else {   //취소
+
+            return false;
+        }
+    }
+    </script>
