@@ -44,7 +44,7 @@ namespace _3gim.Controllers
             return View(result);
         }
 
-        [HttpGet("read/{productname}")]
+        [HttpGet("read")]
         public IActionResult Read(string productname)
         {
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();

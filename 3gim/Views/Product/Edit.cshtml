@@ -22,10 +22,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="defaultInput" class="form-label">　수정할 상품명 조회</label>
-                        <form class="d-flex">
+                        <form class="d-flex" action="/product/read" method="get">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Product Name Search..">
+                                <input type="text" name="productname" class="form-control" placeholder="Product Name Search..">
                                 <button class="btn btn-outline-info"> 조회 </button>
                             </div>
                         </form>
