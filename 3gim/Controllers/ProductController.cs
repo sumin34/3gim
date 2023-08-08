@@ -99,6 +99,12 @@ namespace _3gim.Controllers
             return View();
         }
 
+        [HttpGet("edit")]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
         [HttpGet("listedit")]
         public IActionResult ListEdit()
         {

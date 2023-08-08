@@ -1,6 +1,4 @@
-﻿
-
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -24,56 +22,101 @@
                     </div>
                     <div class="mb-3">
                         <label for="defaultInput" class="form-label">　수정할 상품명 조회</label>
-                        <form class="d-flex">
+                        <form class="d-flex" action="/product/read" method="get">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
-                                <input type="text" class="form-control" placeholder="Product Name Search..">
+                                <input type="text" name="productname" class="form-control" placeholder="Product Name Search..">
+                                <button class="btn btn-outline-info"> 조회 </button>
                             </div>
-                        </form>                                             
-                            <div class="datatable-container">
-                            
+                        </form>
+                        <div class="datatable-container">
+
                             <div class="card-body">
                                 조회 상품
                             </div>
-                                <table id="datatablesSimple" class="datatable-table">
-                                   
-                                    <thead>
+                            <table id="datatablesSimple" class="datatable-table">
+
+                                <thead>
                                     <tr>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >상품 번호</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >상품 이름</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >가격</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >유통기한</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">상품 번호</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">상품 이름</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">가격</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">유통기한</a></th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-index="0">
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                </thead>
+                                <tbody>
+                                    <tr data-index="0">
+                                        <td>몰라</td>
+                                        <td>몰라</td>
+                                        <td>몰라</td>
+                                        <td>몰라</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form action="/product/edit" method="post" name="removeEdit">
+
+                            <div clsaa="card-body">
+
+                                <h3>수정할 정보</h3>
+
+                                <ul>
+                                    <li>
+                                        상품 번호
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductID" id="ProductIDEdit" type="text" placeholder="원래 상품 번호 출력">
+                                        </div>
+                                    </li>
+                                    <br />
+                                    <li>
+                                        상품명
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductName" id="ProductNameEdit" type="text" placeholder="원래 상품 이름 출력">
+                                        </div>
+                                    </li>
+                                    <br />
+                                    <li>
+                                        상품 가격
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductPrice" id="ProductPriceEdit" type="text" placeholder="원래 가격 출력">
+                                        </div>
+                                    </li>
+                                    <br />
+                                    <li>
+                                        유통 기한
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductExp" id="ProductExpEdit" type="text" placeholder="원래 유통기한 출력">
+                                        </div>
+                                    </li>
+                                    <br />
+
+                                </ul>
+
+                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <button class="btn btn-secondary">수정하기</button>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <input id="delButton" type="button" class="btn btn-danger" value="삭 제" placeholder="삭 제" onclick="delEdit()">
+                                </div>
                             </div>
-                         <div class="col-lg-4 col-md-6 mt-4 mt-lg-0 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="150">
-            <div class="box">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
+                        </form>
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
+
 </main>
+
+<script>
+    function delEdit(){
+        if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
+            document.removeEdit.submit();
+        } else {   //취소
+
+            return false;
+        }
+    }
+    </script>
