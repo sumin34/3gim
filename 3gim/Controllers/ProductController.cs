@@ -86,6 +86,12 @@ namespace _3gim.Controllers
             return View(result);
         }
 
+        [HttpGet("edit")]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
         [HttpPost("edit")]
         public IActionResult Edit(Product product)
         {
@@ -99,11 +105,7 @@ namespace _3gim.Controllers
             return View("edit");
         }
 
-        [HttpGet("edit")]
-        public IActionResult Edit()
-        {
-            return View();
-        }
+        
 
         [HttpGet("listedit")]
         public IActionResult ListEdit()
