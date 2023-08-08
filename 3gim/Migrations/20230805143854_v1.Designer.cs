@@ -11,7 +11,7 @@ using _3gim.Data;
 namespace _3gim.Migrations
 {
     [DbContext(typeof(_3gimDbContext))]
-    [Migration("20230804043542_v1")]
+    [Migration("20230805143854_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -183,7 +183,10 @@ namespace _3gim.Migrations
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReleaseCheck")
+                    b.Property<bool>("ReleaseCheck")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Remarks")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -208,6 +211,10 @@ namespace _3gim.Migrations
 
                     b.Property<int>("ProductQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("ProductionDate", "ProductID");
 

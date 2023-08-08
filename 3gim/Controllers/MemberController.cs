@@ -18,7 +18,7 @@ namespace _3gim.Controllers
             _signInManager = signInManager;
         }
 
-
+        
 
 
         [HttpGet("signup")]

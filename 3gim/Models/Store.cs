@@ -11,6 +11,7 @@ namespace _3gim.Models
         public int ProductQuantity { get; set; } // 상품 수량
         
         public string ProductionDate { get; set; } // 상품 생산 날짜
+        public string Remarks { get; set; } // 기타
 
         public int ProductID { get; set; }
         public Product PID { get; set; }

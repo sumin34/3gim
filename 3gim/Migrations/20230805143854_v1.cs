@@ -239,7 +239,8 @@ namespace _3gim.Migrations
                     Vendor = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     OrderQuantity = table.Column<int>(type: "int", nullable: false),
-                    ReleaseCheck = table.Column<string>(type: "longtext", nullable: false)
+                    ReleaseCheck = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Remarks = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ProductID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -262,7 +263,9 @@ namespace _3gim.Migrations
                     ProductionDate = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    ProductQuantity = table.Column<int>(type: "int", nullable: false)
+                    ProductQuantity = table.Column<int>(type: "int", nullable: false),
+                    Remarks = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {

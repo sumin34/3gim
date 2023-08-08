@@ -180,7 +180,10 @@ namespace _3gim.Migrations
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReleaseCheck")
+                    b.Property<bool>("ReleaseCheck")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Remarks")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -205,6 +208,10 @@ namespace _3gim.Migrations
 
                     b.Property<int>("ProductQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("ProductionDate", "ProductID");
 
