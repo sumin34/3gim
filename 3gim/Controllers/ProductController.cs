@@ -49,7 +49,7 @@ namespace _3gim.Controllers
         {
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
 
-            return View(result);
+            return View("edit",result);
         }
 
         [HttpPost("delete")]
@@ -96,7 +96,7 @@ namespace _3gim.Controllers
 
             _dbContext.SaveChanges();
 
-            return View();
+            return View("edit");
         }
 
         [HttpGet("edit")]

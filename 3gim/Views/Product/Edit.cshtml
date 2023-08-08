@@ -1,8 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+@model _3gim.Models.Product
+
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">상품 수정</h1>
@@ -64,28 +62,28 @@
                                     <li>
                                         상품 번호
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductID" id="ProductIDEdit" type="text" placeholder="원래 상품 번호 출력">
+                                            <input class="form-control" value="@Model.ProductID" name="ProductID" id="ProductIDEdit" type="text" placeholder="원래 상품 번호 출력">
                                         </div>
                                     </li>
                                     <br />
                                     <li>
                                         상품명
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductName" id="ProductNameEdit" type="text" placeholder="원래 상품 이름 출력">
+                                            <input class="form-control" value="@Model.ProductName" name="ProductName" id="ProductNameEdit" type="text" placeholder="원래 상품 이름 출력">
                                         </div>
                                     </li>
                                     <br />
                                     <li>
                                         상품 가격
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductPrice" id="ProductPriceEdit" type="text" placeholder="원래 가격 출력">
+                                            <input class="form-control" value="@Model.ProductPrice" name="ProductPrice" id="ProductPriceEdit" type="text" placeholder="원래 가격 출력">
                                         </div>
                                     </li>
                                     <br />
                                     <li>
                                         유통 기한
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductExp" id="ProductExpEdit" type="text" placeholder="원래 유통기한 출력">
+                                            <input class="form-control" value="@Model.ProductExp" name="ProductExp" id="ProductExpEdit" type="text" placeholder="원래 유통기한 출력">
                                         </div>
                                     </li>
                                     <br />
