@@ -87,19 +87,18 @@ namespace _3gim.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TemperatureHumidity",
+                name: "Temperature",
                 columns: table => new
                 {
                     Date = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Time = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Temperature = table.Column<int>(type: "int", nullable: false),
-                    Humidity = table.Column<int>(type: "int", nullable: false)
+                    Tempe = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TemperatureHumidity", x => new { x.Date, x.Time });
+                    table.PrimaryKey("PK_Temperature", x => new { x.Date, x.Time });
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -352,7 +351,7 @@ namespace _3gim.Migrations
                 name: "Store");
 
             migrationBuilder.DropTable(
-                name: "TemperatureHumidity");
+                name: "Temperature");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

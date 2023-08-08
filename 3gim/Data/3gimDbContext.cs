@@ -17,7 +17,7 @@ namespace _3gim.Data
 
         public DbSet<Store> Store { get; set; }
 
-        public DbSet<TemperatureHumidity> TemperatureHumidity { get; set; }
+        public DbSet<Temperature> Temperature { get; set; }
 
 
     }

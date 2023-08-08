@@ -220,7 +220,7 @@ namespace _3gim.Migrations
                     b.ToTable("Store");
                 });
 
-            modelBuilder.Entity("_3gim.Models.TemperatureHumidity", b =>
+            modelBuilder.Entity("_3gim.Models.Temperature", b =>
                 {
                     b.Property<string>("Date")
                         .HasColumnType("varchar(255)");
@@ -228,15 +228,12 @@ namespace _3gim.Migrations
                     b.Property<string>("Time")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Humidity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Temperature")
+                    b.Property<int>("Tempe")
                         .HasColumnType("int");
 
                     b.HasKey("Date", "Time");
 
-                    b.ToTable("TemperatureHumidity");
+                    b.ToTable("Temperature");
                 });
 
             modelBuilder.Entity("_3gim.Models._3gimMember", b =>

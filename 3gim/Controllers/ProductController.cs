@@ -44,7 +44,7 @@ namespace _3gim.Controllers
             return View(result);
         }
 
-        [HttpGet("read/{productname}")]
+        [HttpGet("read")]
         public IActionResult Read(string productname)
         {
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
@@ -52,7 +52,7 @@ namespace _3gim.Controllers
             return View(result);
         }
 
-        [HttpPost("delete/{productname}")]
+        [HttpPost("delete")]
         public IActionResult Delete(string productname)
         {
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
