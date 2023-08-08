@@ -1,6 +1,4 @@
-﻿
-
-@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -29,51 +27,81 @@
                                 <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
                                 <input type="text" class="form-control" placeholder="Product Name Search..">
                             </div>
-                        </form>                                             
-                            <div class="datatable-container">
-                            
+                        </form>
+                        <div class="datatable-container">
+
                             <div class="card-body">
                                 조회 상품
                             </div>
-                                <table id="datatablesSimple" class="datatable-table">
-                                   
-                                    <thead>
+                            <table id="datatablesSimple" class="datatable-table">
+
+                                <thead>
                                     <tr>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >상품 번호</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >상품 이름</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >가격</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" >유통기한</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">상품 번호</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">상품 이름</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">가격</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#">유통기한</a></th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr data-index="0">
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                </thead>
+                                <tbody>
+                                    <tr data-index="0">
+                                        <td>몰라</td>
+                                        <td>몰라</td>
+                                        <td>몰라</td>
+                                        <td>몰라</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form action="/product/Edit" method="post">
+                            
+                            <div clsaa="card-body">
+
+                                <h3>수정할 정보</h3>
+
+                                <ul>
+                                    <li>
+                                        상품 번호
+                                        <table id="ProductIDEdit" class="datatable-table">
+                                            <tbody>
+                                                <tr data-index="0">
+                                                    <td>원래 상품 번호 출력</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                    <li>
+                                        상품명
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductNameEdit" id="ProductName" type="text" placeholder="원래 상품 이름 출력">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        상품 가격
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductPriceEdit" id="ProductPrice" type="text" placeholder="원래 가격 출력">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        유통 기한
+                                        <div class="input-group">
+                                            <input class="form-control" name="ProductExpEdit" id="ProductExp" type="text" placeholder="원래 유통기한 출력">
+                                        </div>
+                                    </li>
+
+                                </ul>
+
+                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <button class="btn btn-secondary">수정하기</button>
+                                </div>
                             </div>
-                         <div class="col-lg-4 col-md-6 mt-4 mt-lg-0 aos-init aos-animate" data-aos="zoom-in" data-aos-delay="150">
-            <div class="box">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
+                        </form>
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
+
 </main>
