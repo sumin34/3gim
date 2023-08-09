@@ -11,8 +11,8 @@ using _3gim.Data;
 namespace _3gim.Migrations
 {
     [DbContext(typeof(_3gimDbContext))]
-    [Migration("20230808130605_v1")]
-    partial class v1
+    [Migration("20230809022224_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

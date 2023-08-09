@@ -42,4 +42,5 @@ app.MapControllerRoute(
 
 app.MapHub<TempHub>("/TempHub");
 
-app.Run("http://0.0.0.0:3333");
+app.Run();
+//app.Run("http://0.0.0.0:3333");
