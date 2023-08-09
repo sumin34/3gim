@@ -11,8 +11,13 @@ using _3gim.Data;
 namespace _3gim.Migrations
 {
     [DbContext(typeof(_3gimDbContext))]
+<<<<<<<< HEAD:3gim/Migrations/20230809035719_v1.Designer.cs
+    [Migration("20230809035719_v1")]
+    partial class v1
+========
     [Migration("20230809022224_InitialCreate")]
     partial class InitialCreate
+>>>>>>>> 8a34c75e44022bb746c205635cd84e542212989b:3gim/Migrations/20230809022224_InitialCreate.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,8 +236,8 @@ namespace _3gim.Migrations
                     b.Property<string>("Time")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Tempe")
-                        .HasColumnType("int");
+                    b.Property<float>("Temp")
+                        .HasColumnType("float");
 
                     b.HasKey("Date", "Time");
 

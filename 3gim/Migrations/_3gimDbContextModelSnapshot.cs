@@ -228,8 +228,8 @@ namespace _3gim.Migrations
                     b.Property<string>("Time")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Tempe")
-                        .HasColumnType("int");
+                    b.Property<float>("Temp")
+                        .HasColumnType("float");
 
                     b.HasKey("Date", "Time");
 

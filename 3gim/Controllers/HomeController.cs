@@ -1,5 +1,7 @@
-﻿using _3gim.Models;
+﻿using _3gim.Data;
+using _3gim.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace _3gim.Controllers
@@ -7,24 +9,27 @@ namespace _3gim.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly _3gimDbContext _dbContext;
 
-
-
-        public HomeController(ILogger<HomeController> logger)
-        {
+      
+        public HomeController(ILogger<HomeController> logger, _3gimDbContext dbContext)
+        {         
             _logger = logger;
+            _dbContext = dbContext;
         }
-
-
 
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public void SaveTemperature(Temperature temp)
         {
-            return View();
+            
+            _dbContext.Temperature.Add(temp);
+
+            _dbContext.SaveChanges();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
