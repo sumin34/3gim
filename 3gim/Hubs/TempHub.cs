@@ -17,15 +17,15 @@ namespace _3gim.Hubs
         public async Task SendTemp(float temp)
         {
             await Clients.All.SendAsync("ReceiveTemp", temp);
-        }   
+        }
 
-        public async Task SaveTemp(float temp)
+        public async Task SaveTemp(float temp, string date, string time)
         {
             Console.WriteLine(temp);
             Temperature temperature = new Temperature();
+            temperature.Date = date;
+            temperature.Time = time;
             temperature.Temp = temp;
-            temperature.Time = "17:50";
-            temperature.Date = "2023-08-09";
 
             _dbContext.Temperature.Add(temperature);
 
