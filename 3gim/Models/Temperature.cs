@@ -9,6 +9,6 @@ namespace _3gim.Models
         
         public string Date { get; set; } // 날짜
         public string Time { get; set; } // 시간
-        public int Tempe { get; set; } // 온도
+        public float Temp { get; set; } // 온도
     }
 }

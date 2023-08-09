@@ -94,7 +94,7 @@ namespace _3gim.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Time = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Tempe = table.Column<int>(type: "int", nullable: false)
+                    Temp = table.Column<float>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,7 +11,7 @@ using _3gim.Data;
 namespace _3gim.Migrations
 {
     [DbContext(typeof(_3gimDbContext))]
-    [Migration("20230808130605_v1")]
+    [Migration("20230809035719_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -231,8 +231,8 @@ namespace _3gim.Migrations
                     b.Property<string>("Time")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("Tempe")
-                        .HasColumnType("int");
+                    b.Property<float>("Temp")
+                        .HasColumnType("float");
 
                     b.HasKey("Date", "Time");
 
