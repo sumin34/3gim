@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /3gim/Migrations/20230804124522_v.Designer.cs
 /3gim/Migrations/20230804124522_v.cs
+/3gim/appsettings.json
