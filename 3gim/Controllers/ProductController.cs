@@ -25,7 +25,8 @@ namespace _3gim.Controllers
         [HttpGet("regist")]
         public IActionResult Regist()
         {
-            return View();
+            var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
+            return View(result);
         }
 
         [HttpPost("regist")]
@@ -35,7 +36,7 @@ namespace _3gim.Controllers
 
             _dbContext.SaveChanges();
 
-            return Redirect("/product/list");
+            return View();
         }
 
         [HttpGet("list")]
@@ -49,7 +50,7 @@ namespace _3gim.Controllers
         [HttpGet("read/{productname}")]
         public string Read(string productname)
         {
-            var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();            
+            var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
 
             var json = new JObject();
             json.Add("ProductID", result.ProductID);
@@ -59,7 +60,7 @@ namespace _3gim.Controllers
             Console.WriteLine(json.ToString());
 
             return json.ToString();
-            
+
         }
 
 
@@ -70,7 +71,7 @@ namespace _3gim.Controllers
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
             _dbContext.Remove(result);
             _dbContext.SaveChanges();
-            
+
             return View();
         }
 
@@ -85,7 +86,7 @@ namespace _3gim.Controllers
         [HttpPost("order")]
         public IActionResult Order(Release release)
         {
-            var result = _dbContext.Release.Where(r=> r.ProductID == release.ProductID).FirstOrDefault();
+            var result = _dbContext.Release.Where(r => r.ProductID == release.ProductID).FirstOrDefault();
             _dbContext.Add(result);
             _dbContext.SaveChanges();
             return View();
@@ -95,45 +96,8 @@ namespace _3gim.Controllers
         public IActionResult Quantity()
         {
             var result = _dbContext.Product.Include(p => p.Store).ToList();
-
-            JArray jArray = new JArray();
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                JObject jObject = new JObject(
-                    new JProperty("상품번호", result[i].ProductID),
-                    new JProperty("상품이름", result[i].ProductName),
-                    new JProperty("상품가격", result[i].ProductPrice)
-                    );
-                jArray.Add(jObject);
-            }
-
-            //return View(Json(jArray));
-            return View();
+            return View(result);
         }
-        [HttpGet("QuantityAjax")]
-        public String QuantityAjax()
-        {
-            var result = _dbContext.Product.Include(p => p.Store).ToList();
-
-            JArray jArray = new JArray();
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                JObject jObject = new JObject(
-                    new JProperty("상품번호", result[i].ProductID),
-                    new JProperty("상품이름", result[i].ProductName),
-                    new JProperty("상품가격", result[i].ProductPrice)
-                    );
-                jArray.Add(jObject);
-            }
-
-            Console.WriteLine(jArray.ToString());
-
-            return jArray.ToString();
-        }
-
-
 
         [HttpGet("edit")]
         public IActionResult Edit()
@@ -154,7 +118,7 @@ namespace _3gim.Controllers
             return View();
         }
 
-        
+
 
         [HttpGet("listedit")]
         public IActionResult ListEdit()
@@ -176,7 +140,7 @@ namespace _3gim.Controllers
             return View();
         }
 
-       
+
 
 
     }
