@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Newtonsoft.Json.Linq;
 
 namespace _3gim.Controllers
 {
@@ -82,9 +83,46 @@ namespace _3gim.Controllers
         [HttpGet("quantity")]
         public IActionResult Quantity()
         {
-            var result = _dbContext.Product.Include(p=>p.Store).ToList();
-            return View(result);
+            var result = _dbContext.Product.Include(p => p.Store).ToList();
+
+            JArray jArray = new JArray();
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                JObject jObject = new JObject(
+                    new JProperty("상품번호", result[i].ProductID),
+                    new JProperty("상품이름", result[i].ProductName),
+                    new JProperty("상품가격", result[i].ProductPrice)
+                    );
+                jArray.Add(jObject);
+            }
+
+            //return View(Json(jArray));
+            return View();
         }
+        [HttpGet("QuantityAjax")]
+        public String QuantityAjax()
+        {
+            var result = _dbContext.Product.Include(p => p.Store).ToList();
+
+            JArray jArray = new JArray();
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                JObject jObject = new JObject(
+                    new JProperty("상품번호", result[i].ProductID),
+                    new JProperty("상품이름", result[i].ProductName),
+                    new JProperty("상품가격", result[i].ProductPrice)
+                    );
+                jArray.Add(jObject);
+            }
+
+            Console.WriteLine(jArray.ToString());
+
+            return jArray.ToString();
+        }
+
+
 
         [HttpGet("edit")]
         public IActionResult Edit()
