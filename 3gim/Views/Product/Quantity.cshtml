@@ -18,6 +18,7 @@
                 <div class="card-header">
                     <svg class="svg-inline--fa fa-table me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M64 256V160H224v96H64zm0 64H224v96H64V320zm224 96V320H448v96H288zM448 256H288V160H448v96zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"></path></svg><!-- <i class="fas fa-table me-1"></i> Font Awesome fontawesome.com -->
                     완제품 수량 조회
+                <button>최신 정보</button>
                 </div>
                 <div class="card-body">
                     <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
@@ -35,20 +36,31 @@
                             <table id="datatablesSimple" class="datatable-table">
                                 <thead>
                                     <tr>
-                                        <th data-sortable="true" style="width: 25%;"><a href="#" class="datatable-sorter">상품 번호</a></th>
-                                        <th data-sortable="true" style="width: 25%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
-                                        <th data-sortable="true" style="width: 25%;"><a href="#" class="datatable-sorter">재고</a></th>
-                                        <th data-sortable="true" style="width: 25%;"><a href="#" class="datatable-sorter">비고</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">상품 번호</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">총 입고</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">총 출고</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">총 재고</a></th>
                                     </tr>
                                 </thead>
+
+                                <!--총 입고, 총 출고 값이 변하면 실시간으로 비동기 처리가 되도록-->
                                 <tbody>
-                                    <tr data-index="0">
-                                        <td>몰라</td>
-                                        <td>몰라</td>
-                                        <td>몰라</td>
-                                        <td>몰라</td>
+                                    @for(int i=0;i<@Model.Count;i++){
+                                    <tr data-index="@i">
+                                        <td>@Model[i].ProductID</td>
+                                        <td>@Model[i].ProductName</td>
+                                        <td>@Model[i].ProductID</td>
+                                        <td>@Model[i].ProductID</td>
+                                        <td>@Model[i].ProductID</td>
                                     </tr>
+                                    }
                                 </tbody>
+
+                                <script>
+
+                                </script>
+                                    
                             </table>
                         </div>
                         <div class="datatable-bottom">
