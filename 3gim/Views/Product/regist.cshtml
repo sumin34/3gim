@@ -6,6 +6,7 @@
 @{
 }
 
+@model IEnumerable<_3gim.Models.Product>
 
 <main>
     <div class="container-fluid px-4">
@@ -59,36 +60,44 @@
             <div class="card-body">
                 <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
                     <div class="datatable-top">
-                        <div class="datatable-dropdown">
-                            <label>
-                                <select class="datatable-selector"><option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option></select> entries per page
-                            </label>
-                        </div>
-                        <div class="datatable-search">
-                            <!--<input class="datatable-input" placeholder="Search..." type="search" title="Search within table" aria-controls="datatablesSimple">-->
-                        </div>
                     </div>
                     <div class="datatable-container">
                         <table id="datatablesSimple" class="datatable-table">
                             <thead>
-                                <tr>                                    
+                                <tr>
                                     <th data-sortable="true" style="width: 33.333333%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
                                     <th data-sortable="true" style="width: 33.333333%;"><a href="#" class="datatable-sorter">상품 가격</a></th>
                                     <th data-sortable="true" style="width: 33.333333%;"><a href="#" class="datatable-sorter">유통 기한</a></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-index="0">
-                                    <td>몰라</td>
-                                    <td>몰라</td>
-                                    <td>몰라</td>                                                                       
-                                </tr>
+                                @if (Model != null)
+                                {
+                                    @foreach (var product in Model)
+                                    {
+                                        <tr data-index="@product.ProductID">
+                                            <td>@product.ProductName</td>
+                                            <td>@product.ProductPrice</td>
+                                            <td>@product.ProductExp</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr data-index="0">
+                                        <td>Error</td>
+                                        <td>Error</td>
+                                        <td>Error</td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
                     <div class="datatable-bottom">
-                        <div class="datatable-info">Showing 1 to 1 of 1 entries</div>
-                        <nav class="datatable-pagination"><ul class="datatable-pagination-list"></ul></nav>
+                        <div class="datatable-info"></div>
+                        <nav class="datatable-pagination">
+                            <ul class="datatable-pagination-list"></ul>
+                        </nav>
                     </div>
                 </div>
             </div>
