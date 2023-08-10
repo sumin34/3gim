@@ -1,5 +1,4 @@
-﻿
-@model _3gim.Models.Product
+﻿@model _3gim.Models.Product
 
 <main>
     <div class="container-fluid px-4">
@@ -21,11 +20,11 @@
                     <div class="mb-3">
                         <label for="defaultInput" class="form-label">　수정할 상품명 조회</label>
                         <!-- <form  class="d-flex">-->
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
-                                <input type="text" id="searchproduct" name="productname" class="form-control" placeholder="Product Name Search..">
-                                <button class="btn btn-outline-info" onclick="sendRequest()"> 조회 </button>
-                            </div>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
+                            <input type="text" id="searchproduct" name="productname" class="form-control" placeholder="Product Name Search..">
+                            <button class="btn btn-outline-info" onclick="sendRequest()"> 조회 </button>
+                        </div>
                         <!--</form> -->
                         <div class="datatable-container">
 
@@ -62,7 +61,7 @@
                                     <li>
                                         상품 번호
                                         <div class="input-group">
-                                            <input class="form-control" name="ProductID" id="ProductIDEdit"  type="text" placeholder="원래 상품 번호">
+                                            <input class="form-control" name="ProductID" id="ProductIDEdit" type="text" placeholder="원래 상품 번호">
                                         </div>
                                     </li>
                                     <br />
@@ -87,7 +86,7 @@
                                         </div>
                                     </li>
                                     <br />
-                                   
+
                                 </ul>
 
                                 <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
@@ -107,9 +106,17 @@
 </main>
 
 <script>
+
+    
+
     function delEdit() {
         if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
-            return Redirect("/product/delete/");
+            var httpRequest = new XMLHttpRequest();
+            var productname = document.getElementById("searchproduct").value;
+            httpRequest.open("POST", "/product/delete/" + productname);
+            httpRequest.send();
+
+            document.location.href = '/product/edit';
 
         } else {   //취소
 
@@ -132,13 +139,13 @@
                 document.getElementById("ProductNameEdit").value = res.ProductName
                 document.getElementById("ProductPriceEdit").value = res.ProductPrice
                 document.getElementById("ProductExpEdit").value = res.ProductExp
-                
-              
+
+
             }
         };
         var productname = document.getElementById("searchproduct").value;
         // GET 방식으로 요청을 보내면서 데이터를 동시에 전달함.
-        httpRequest.open("GET", "/product/read/"+productname, true);
+        httpRequest.open("GET", "/product/read/" + productname, true);
         httpRequest.send();
     }
 

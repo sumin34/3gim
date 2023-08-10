@@ -36,16 +36,10 @@ namespace _3gim.Controllers
 
             _dbContext.SaveChanges();
 
-            return View();
+            return Redirect("/product/regist");
         }
 
-        [HttpGet("list")]
-        public IActionResult List()
-        {
-            var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
-
-            return View(result);
-        }
+     
 
         [HttpGet("read/{productname}")]
         public string Read(string productname)
