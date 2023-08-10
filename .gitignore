@@ -364,3 +364,6 @@ FodyWeavers.xsd
 /3gim/Migrations/20230804124522_v.Designer.cs
 /3gim/Migrations/20230804124522_v.cs
 /3gim/appsettings.json
+/3gim/Migrations/20230809035719_v1.cs
+/3gim/Migrations/20230809035719_v1.Designer.cs
+*.cs
