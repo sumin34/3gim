@@ -11,7 +11,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">상품 등록</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="/home/index.html">메인 페이지</a></li>
+            <li class="breadcrumb-item"><a href="/home/index">메인 페이지</a></li>
             <li class="breadcrumb-item active">상품 등록 페이지</li>
         </ol>
         <div class="row justify-content-center">
@@ -25,26 +25,19 @@
 
                         <form action="/product/regist" method="post">
                             <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3 mb-md-0">
-                                        <input class="form-control" name="ProductName" id="ProductName" type="text" placeholder="Enter your first name">
-                                        <label for="inputFirstName">상품 이름</label>
-                                    </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" name="ProductName" id="ProductName" type="text" placeholder="Enter Product Name">
+                                    <label for="ProductName">　상품 이름</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3 mb-md-0">
-                                        <input class="form-control" name="ProductPrice" id="ProductPrice" type="text" placeholder="Enter your last name">
-                                        <label for="inputLastName">상품 가격</label>
-                                    </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" name="ProductPrice" id="ProductPrice" type="text" placeholder="Enter Product Price">
+                                    <label for="ProductPrice">　상품 가격</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3 mb-md-0">
-                                        <input class="form-control" name="ProductExp" id="ProductExp" type="text" placeholder="Enter your last name">
-                                        <label for="inputLastName">유통기한</label>
-                                    </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" name="ProductExp" id="ProductExp" type="text" placeholder="Enter Product Exp">
+                                    <label for="ProductExp">　유통 기한</label>
                                 </div>
                             </div>
-
                             <div class="mt-4 mb-0">
                                 <div class="d-grid"><button class="btn btn-primary btn-block">상품 등록하기</button></div>
                             </div>
@@ -56,7 +49,51 @@
 
         </div>
     </div>
+    <div class="container-fluid px-4">
 
+        <div class="card mb-4">
+            <div class="card-header">
+                <svg class="svg-inline--fa fa-table me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M64 256V160H224v96H64zm0 64H224v96H64V320zm224 96V320H448v96H288zM448 256H288V160H448v96zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"></path></svg><!-- <i class="fas fa-table me-1"></i> Font Awesome fontawesome.com -->
+                등록된 상품 목록
+            </div>
+            <div class="card-body">
+                <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+                    <div class="datatable-top">
+                        <div class="datatable-dropdown">
+                            <label>
+                                <select class="datatable-selector"><option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option></select> entries per page
+                            </label>
+                        </div>
+                        <div class="datatable-search">
+                            <!--<input class="datatable-input" placeholder="Search..." type="search" title="Search within table" aria-controls="datatablesSimple">-->
+                        </div>
+                    </div>
+                    <div class="datatable-container">
+                        <table id="datatablesSimple" class="datatable-table">
+                            <thead>
+                                <tr>                                    
+                                    <th data-sortable="true" style="width: 33.333333%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
+                                    <th data-sortable="true" style="width: 33.333333%;"><a href="#" class="datatable-sorter">상품 가격</a></th>
+                                    <th data-sortable="true" style="width: 33.333333%;"><a href="#" class="datatable-sorter">유통 기한</a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-index="0">
+                                    <td>몰라</td>
+                                    <td>몰라</td>
+                                    <td>몰라</td>                                                                       
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="datatable-bottom">
+                        <div class="datatable-info">Showing 1 to 1 of 1 entries</div>
+                        <nav class="datatable-pagination"><ul class="datatable-pagination-list"></ul></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </main>
