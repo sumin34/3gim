@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace _3gim.Controllers
@@ -45,15 +46,25 @@ namespace _3gim.Controllers
             return View(result);
         }
 
-        [HttpGet("read")]
-        public IActionResult Read(string productname)
+        [HttpGet("read/{productname}")]
+        public string Read(string productname)
         {
-            var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
+            var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();            
 
-            return View("edit",result);
+            var json = new JObject();
+            json.Add("ProductID", result.ProductID);
+            json.Add("ProductName", result.ProductName);
+            json.Add("ProductPrice", result.ProductPrice);
+            json.Add("ProductExp", result.ProductExp);
+            Console.WriteLine(json.ToString());
+
+            return json.ToString();
+            
         }
 
-        [HttpPost("delete")]
+
+
+        [HttpPost("delete/{productname}")]
         public IActionResult Delete(string productname)
         {
             var result = _dbContext.Product.Where(product => product.ProductName == productname).FirstOrDefault();
@@ -140,7 +151,7 @@ namespace _3gim.Controllers
 
             _dbContext.SaveChanges();
 
-            return View("edit");
+            return View();
         }
 
         
@@ -164,6 +175,8 @@ namespace _3gim.Controllers
 
             return View();
         }
+
+       
 
 
     }

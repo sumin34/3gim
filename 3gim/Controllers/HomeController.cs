@@ -23,15 +23,7 @@ namespace _3gim.Controllers
             return View();
         }
 
-        public void SaveTemperature(Temperature temp)
-        {
-            
-            _dbContext.Temperature.Add(temp);
-
-            _dbContext.SaveChanges();
-
-        }
-
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
