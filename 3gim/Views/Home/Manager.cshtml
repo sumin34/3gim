@@ -7,99 +7,61 @@
 
 <main>
     <div class="container-fluid px-5">
-        <h1 class="mt-5">Manager Page</h1>
+        <h1 class="mt-5">Manager</h1>
 
-    </div>
-
-    <div class="container row" style="float: none; margin: auto;">
-
-        <div class="col-xl-6" style="float: none; margin:0 auto">
-            <div class="card mb-3">
-                <div class="card-header">
-
-                    Camera 1
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-white text-dark mb-4">
+                    <div class="card-header">Camera 1</div>
+                    <div class="card-body">
+                    </div>
                 </div>
-                <div class="card-body"></div>
-
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-white text-dark mb-4">
+                    <div class="card-header">AI</div>
+                    <div class="card-body">
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xl-6">
-            <div class="card mb-3">
-                <div class="card-header">
-
-                    AI
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-white text-dark mb-4">
+                    <div class="card-header">Camera 2</div>
+                    <div class="card-body">
+                    </div>
                 </div>
-                <div class="card-body"></div>
             </div>
-        </div>
-    </div>
-
-    <div class="container row" style="float: none; margin: auto;">
-
-        <div class="col-xl-6" style="float: none; margin:0 auto">
-            <div class="card mb-4">
-                <div class="card-header">
-
-                    Camera 2
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-white text-dark mb-4">
+                    <div class="card-header">Temperature</div>
+                    <div class="card-body"><canvas id="myAreaChart" width="100" height="40"></canvas></div>
                 </div>
-                <div class="card-body"></div>
             </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header">
-
-                    Temperature
-                </div>
-
-                <div class="card-body"><canvas id="myAreaChart" width="100" height="40"></canvas></div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="container row" style="float: none; margin: auto;">
-
-        <div class="col-xl-6" style="float: none; margin:0 auto">
-            <div class="card mb-4">
-                <div class="card-header">
-
-                    Belt Control Button
-                </div>
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-
-                        <div class="col-xl-4 col-md-6">
-                        <button class="btn btn-dark">Start</button>
-                        </div>
-                        <div class="col-xl-4 col-md-6">
+            <div class="row">
+                <div class="col-xl-6 col-md-6">
+                    <div class="card bg-white text-dark mb-4">
+                        <div class="card-header">
+                            Belt Control Button
                             <button class="btn btn-dark">Start</button>
+                            <button class="btn btn-dark">Stop</button>
                         </div>
 
-                       
-
                     </div>
                 </div>
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-header">
-
-                    Temperature Contorl Button
-                </div>
-                <div class="card-body">
-
-                    <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-
-                        <button class="btn btn-dark">Start</button>
-                        <button class="btn btn-dark">Stop</button>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card bg-white text-dark mb-4">
+                        <div class="card-header">
+                            Temperature Contorl Button
+                            <button class="btn btn-dark">Up</button>
+                            <button class="btn btn-dark"> Down</button>
+                        </div>
 
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
 
 </main>
