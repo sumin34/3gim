@@ -86,6 +86,8 @@ namespace _3gim.Controllers
             return View();
         }
 
+
+
         [HttpGet("quantity")]
         public IActionResult Quantity()
         {
@@ -93,9 +95,23 @@ namespace _3gim.Controllers
             return View(result);
         }
 
+
+
+        [HttpGet("detail")]
+        public IActionResult Detail()
+        {
+            var result = _dbContext.Product.ToList();
+            Console.WriteLine(result);
+            return View(result);
+        }
+
+
+
+
         [HttpGet("edit")]
         public IActionResult Edit()
         {
+
             return View();
         }
 
@@ -133,9 +149,5 @@ namespace _3gim.Controllers
 
             return View();
         }
-
-
-
-
     }
 }
