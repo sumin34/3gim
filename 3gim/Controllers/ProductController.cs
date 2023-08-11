@@ -5,8 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using MySql.Data.MySqlClient;
+using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using MySqlCommand = MySql.Data.MySqlClient.MySqlCommand;
+using MySqlConnection = MySql.Data.MySqlClient.MySqlConnection;
+using MySqlDataReader = MySql.Data.MySqlClient.MySqlDataReader;
 
 namespace _3gim.Controllers
 {
@@ -41,7 +45,7 @@ namespace _3gim.Controllers
             return Redirect("/product/regist");
         }
 
-     
+
 
         [HttpGet("read/{productname}")]
         public string Read(string productname)
@@ -94,9 +98,36 @@ namespace _3gim.Controllers
         [HttpGet("quantity")]
         public IActionResult Quantity()
         {
-            var result = _dbContext.Product.Include(p => p.Store).ToList();
+            _mySqlConnection.Close();
+            _mySqlConnection.Open();
+            string sql = "select product.ProductID as '상품번호',product.productname as '상품명',sum(warehousing.Store) as '총입고',sum(warehousing.Release) as '총출고',sum(warehousing.Store)-sum(warehousing.Release) as '현재고' from warehousing join product where warehousing.ProductID=product.ProductID group by product.ProductID  order by product.ProductID";
+            MySqlCommand cmd = new MySqlCommand(sql, _mySqlConnection);
+            MySqlDataReader result = cmd.ExecuteReader();
 
-            return View(result);
+            List<stock> stocks = new List<stock>();
+
+            while (result.Read())
+            {
+                stock stock = new stock();
+                //Console.WriteLine(result.GetInt32("상품번호"));
+                //Console.WriteLine(result.GetString("상품명"));
+                //Console.WriteLine(result.GetInt32("총입고"));
+                //Console.WriteLine(result.GetInt32("총출고"));
+                //Console.WriteLine(result.GetInt32("현재고"));
+
+                stock.ProductID = result.GetInt32("상품번호");
+                stock.ProductName = result.GetString("상품명");
+                stock.TotalStore = result.GetInt32("총입고");
+                stock.TotalRelease = result.GetInt32("총출고");
+                stock.CurrentQuantity = result.GetInt32("현재고");
+
+
+                stocks.Add(stock);
+            }
+
+            _mySqlConnection.Close();
+
+            return View(stocks);
         }
 
 
@@ -147,7 +178,7 @@ namespace _3gim.Controllers
         [HttpPost("listedit")]
         public IActionResult ListEdit(Warehousing store)
         {
-            return View();      
+            return View();
         }
     }
 }
