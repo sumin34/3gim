@@ -1,10 +1,5 @@
-﻿
+﻿@model IEnumerable<_3gim.Models.stock>
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">재고 현황 조회</h1>
@@ -48,38 +43,36 @@
                                 <tbody id="change">
                                     <!--for(int i=0;i<Model.Count;i++){
                                     <tr data-index="i">-->
-                                    <tr>
-                                        <td id="info1"></td>
-                                        <td id="info2"></td>
-                                        <td id="info3"></td>
-                                        <td id="info4"></td>
-                                        <td id="info5"></td>
-                                    </tr>
-                                   
+                                    @if (Model != null)
+                                    {
+                                        int i = 1;
 
-                                   <tr id="text">
-                                       test
-                                   </tr>
-                                </tbody>
-                                <script>
-                                    function sendRequest() {
-                                        var httpRequest = new XMLHttpRequest();
-                                        httpRequest.onreadystatechange = function () {
-                                            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                                                for(int i=0;i<json.length;i++){
-                                                    document.getElementById("info1").innerHTML = httpRequest.responseText;
-                                                    document.getElementById("info2").innerHTML = "되는 건 맞아?";
-                                                }
-                                            }
-                                        };
-                                        httpRequest.open("GET", "/product/quantityajax",true);
-                                        httpRequest.send();
-
+                                        foreach (var stock in Model)
+                                        {
+                                            <tr data-index="@{
+                                                i++;
+                                            }">
+                                                <td>@stock.ProductID</td>
+                                                <td>@stock.ProductName</td>
+                                                <td>@stock.TotalStore</td>
+                                                <td>@stock.TotalRelease</td>
+                                                <td>@stock.CurrentQuantity</td>  
+                                            </tr>
+                                        }
                                     }
-                                    sendRequest();
-                                    window.setInterval("sendRequest()", 1000); // 매 0.5초마다 Ajax 요청을 보냄.
-                                </script>
-                                    
+                                    else
+                                    {
+                                        <tr data-index="0">
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                             
+                                   
                             </table>
                         </div>
                         <div class="datatable-bottom">
