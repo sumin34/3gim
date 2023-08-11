@@ -78,9 +78,9 @@ namespace _3gim.Controllers
         }
 
         [HttpPost("order")]
-        public IActionResult Order(Release release)
+        public IActionResult Order(Order release)
         {
-            var result = _dbContext.Release.Where(r => r.ProductID == release.ProductID).FirstOrDefault();
+            var result = _dbContext.Order.Where(r => r.ProductID == release.ProductID).FirstOrDefault();
             _dbContext.Add(result);
             _dbContext.SaveChanges();
             return View();
@@ -109,7 +109,7 @@ namespace _3gim.Controllers
 
             _dbContext.SaveChanges();
 
-            return View();
+            return Redirect("/product/edit");
         }
 
 
@@ -122,16 +122,9 @@ namespace _3gim.Controllers
 
 
         [HttpPost("listedit")]
-        public IActionResult ListEdit(Store store)
+        public IActionResult ListEdit(Warehousing store)
         {
-            var result = _dbContext.Store.Where(s => s.ProductID == s.ProductID).FirstOrDefault();
-            result.ProductionDate = store.ProductionDate;
-            result.ProductQuantity = store.ProductQuantity;
-            result.Remarks = store.Remarks;
-
-            _dbContext.SaveChanges();
-
-            return View();
+            return View();      
         }
 
 
