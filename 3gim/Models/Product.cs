@@ -11,8 +11,7 @@ namespace _3gim.Models
         public int ProductExp { get; set; } // 상품 유통기한
         
 
-        public List<Store> Store { get; set; } = new List<Store>();
-
-        public List<Release> Release { get; set; } = new List<Release>();
+        public List<Warehousing> Store { get; set; } = new List<Warehousing>();
+        public List<Order> Release { get; set; } = new List<Order>();
     }
 }
