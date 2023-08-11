@@ -15,6 +15,7 @@ namespace _3gim.Data
 
         public DbSet<Order> Order { get; set; }
 
+
         public DbSet<Warehousing> Warehousing { get; set; }
 
         public DbSet<Temperature> Temperature { get; set; }

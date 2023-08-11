@@ -76,6 +76,7 @@ namespace _3gim.Controllers
         public IActionResult Order()
         {
             var result = _dbContext.Product.Include(p => p.Release).ToList();
+            Console.WriteLine(result);
             return View(result);
         }
 
@@ -94,6 +95,7 @@ namespace _3gim.Controllers
         public IActionResult Quantity()
         {
             var result = _dbContext.Product.Include(p => p.Store).ToList();
+
             return View(result);
         }
 
@@ -102,8 +104,11 @@ namespace _3gim.Controllers
         [HttpGet("detail")]
         public IActionResult Detail()
         {
-            var result = _dbContext.Product.ToList();
+            var result = _dbContext.Warehousing.Include(p=> p.PID).ToList();
+            
+
             Console.WriteLine(result);
+
             return View(result);
         }
 

@@ -2504,6 +2504,10 @@ textarea.form-control-lg {
   align-items: stretch;
   width: 100%;
 }
+
+
+
+
 .input-group > .form-control, .input-group > .datatable-input,
 .input-group > .form-select,
 .input-group > .datatable-selector,
@@ -2718,6 +2722,28 @@ textarea.form-control-lg {
 .is-invalid ~ .invalid-tooltip {
   display: block;
 }
+
+.inputBox:hover{
+    border-color:blue;
+}
+
+#dropdown {
+    position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: white;
+    display: none;
+}
+
+.option {
+    padding: 8px;
+}
+
+.option:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
 
 .was-validated .form-control:invalid, .was-validated .datatable-input:invalid, .form-control.is-invalid, .is-invalid.datatable-input {
   border-color: #dc3545;

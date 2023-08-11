@@ -1,5 +1,4 @@
-﻿@model _3gim.Models.Product
-
+﻿
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">재고 상세</h1>
@@ -18,18 +17,82 @@
                         <label for="defaultInput" class="form-label">　수정할 상품명 조회</label>
                         <!-- <form  class="d-flex">-->
                         <div class="input-group">
-                            <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
-                            <select name="languages" id="lang">
-                             <!--   
-                            foreach(var product in Model)
-                            {
-                                    <option value="@Model.ProductName">@Model.ProductName</option>
-                            }
-                            -->    
-                            </select>
-                            <input type="text" id="searchproduct" name="productname" class="form-control" placeholder="Product Name Search">
+                            <input type="text" id="inputBox" name="productname" class="form-control inputBox:hover" placeholder="Product Name Search">
                             <button class="btn btn-outline-info" onclick="sendRequest()"> 조회 </button>
                         </div>
+                            <div id="dropdown" style="position:absolute; width:90%; background-color:white; border:1px solid #ccc;  z-index:1; display: none;"></div>
+
+                            <script>
+                            $(document).ready(function () {
+                                const inputBox = $("#inputBox");
+                                const dropdown = $("#dropdown");
+
+                                inputBox.hover(function () {
+                                    showDropdown();
+                                }, function () {
+                                    hideDropdown();
+                                });
+
+                                dropdown.hover(function () {
+                                    showDropdown();
+                                }, function () {
+                                    hideDropdown();
+                                });
+
+                                function showDropdown() {
+                                    dropdown.show();
+                                }
+
+                                function hideDropdown() {
+                                    dropdown.hide();
+                                }
+
+                                // 이 부분에 사용 가능한 값(옵션)을 불러오는 코드를 추가해야 합니다.
+
+                                console.log("여기?");
+                                var modelData = @Html.Raw(Model);
+                                console.log(modelData);
+
+
+                                const availableValues = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
+
+                                inputBox.on("input", function () {
+                                    const inputText = inputBox.val().toLowerCase();
+                                    const filteredValues = availableValues.filter(value => value.toLowerCase().includes(inputText));
+
+                                    if (filteredValues.length > 0) {
+                                        dropdown.html("");
+                                        filteredValues.forEach(value => {
+                                            const option = $("<div class='option'>" + value + "</div>");
+                                            option.click(function () {
+                                                inputBox.val(value);
+                                                hideDropdown();
+                                            });
+                                            dropdown.append(option);
+                                        });
+                                        showDropdown();
+                                    } else {
+                                        hideDropdown();
+                                    }
+                                });
+                            });
+                            </script>
+                            <!--<select  id="lang">
+                                <option value=test>나오는지 확인</option>
+
+                            foreach(var product in Model)
+                            {
+                                    <option value=product>나오는지 확인</option>
+                            }
+                            </select>-->
+                            
+
+
+
+
+
+
+
                         <!--</form> -->
                         <div class="datatable-container">
 
@@ -56,52 +119,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <form method="post" id="removeEdit">
-
-                            <div clsaa="card-body">
-
-                                <h3>수정할 정보</h3>
-
-                                <ul>
-                                    <li>
-                                        상품 번호
-                                        <div class="input-group">
-                                            <input class="form-control" name="ProductID" id="ProductIDEdit" type="text" placeholder="원래 상품 번호">
-                                        </div>
-                                    </li>
-                                    <br />
-                                    <li>
-                                        상품명
-                                        <div class="input-group">
-                                            <input class="form-control" name="ProductName" id="ProductNameEdit" type="text" placeholder="원래 상품 이름">
-                                        </div>
-                                    </li>
-                                    <br />
-                                    <li>
-                                        상품 가격
-                                        <div class="input-group">
-                                            <input class="form-control" name="ProductPrice" id="ProductPriceEdit" type="text" placeholder="원래 가격">
-                                        </div>
-                                    </li>
-                                    <br />
-                                    <li>
-                                        유통 기한
-                                        <div class="input-group">
-                                            <input class="form-control" name="ProductExp" id="ProductExpEdit" type="text" placeholder="원래 유통기한">
-                                        </div>
-                                    </li>
-                                    <br />
-
-                                </ul>
-
-                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <button class="btn btn-secondary" onclick="/product/edit">수정하기</button>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <input id="delButton" type="button" onclick="delEdit()" class="btn btn-danger" value="삭 제" placeholder="삭 제">
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
