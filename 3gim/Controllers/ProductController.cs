@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,12 +15,13 @@ namespace _3gim.Controllers
     {
         private readonly _3gimDbContext _dbContext;
         private readonly UserManager<_3gimMember> _userManager;
+        private readonly MySqlConnection _mySqlConnection;
 
-
-        public ProductController(_3gimDbContext dbContext, UserManager<_3gimMember> userManager)
+        public ProductController(_3gimDbContext dbContext, UserManager<_3gimMember> userManager, MySqlConnection mySqlConnection)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _mySqlConnection = mySqlConnection;
         }
 
         [HttpGet("regist")]
