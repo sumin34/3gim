@@ -4,6 +4,34 @@
 @{
 }
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/CameraHub").build();
+
+    connection.on("ReceiveVideo", function (message) {
+
+        document.getElementById("BeltViedo").src = "data:image/jpeg;base64," + message;
+    })
+
+    connection.start().then(function () {
+        console.log("연결 성공 'BeltCamera'");
+    }).catch(function (err) {
+        console.log("연결 실패 'BeltCamera': " + err.toString());
+    });
+
+    connection.on("ReceiveVideo2", function (message) {
+
+        document.getElementById("BeltViedo2").src = "data:image/jpeg;base64," + message;
+    })
+
+    connection.start().then(function () {
+        console.log("연결 성공 'BeltCamera2'");
+    }).catch(function (err) {
+        console.log("연결 실패 'BeltCamera2': " + err.toString());
+    });
+
+</script>
+
 
 <main>
     <div class="container-fluid px-5">
@@ -14,6 +42,7 @@
                 <div class="card bg-white text-dark mb-4">
                     <div class="card-header">Camera 1</div>
                     <div class="card-body">
+                        <img src="" id="BeltViedo" style="width:200px; height:200px;" />
                     </div>
                 </div>
             </div>
@@ -21,6 +50,7 @@
                 <div class="card bg-white text-dark mb-4">
                     <div class="card-header">AI</div>
                     <div class="card-body">
+                        <img src="" id="" style="width:200px; height:200px;" />
                     </div>
                 </div>
             </div>
@@ -30,6 +60,7 @@
                 <div class="card bg-white text-dark mb-4">
                     <div class="card-header">Camera 2</div>
                     <div class="card-body">
+                        <img src="" id="BeltViedo2" style="width:200px; height:200px;" />
                     </div>
                 </div>
             </div>
@@ -63,5 +94,4 @@
             </div>
         </div>
     </div>
-
 </main>
