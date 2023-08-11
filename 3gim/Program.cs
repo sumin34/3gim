@@ -3,11 +3,13 @@ using _3gim.Hubs;
 using _3gim.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddSignalR();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -21,6 +23,12 @@ builder.Services.AddIdentity<_3gimMember, IdentityRole>(
     )
     .AddEntityFrameworkStores<_3gimDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddSingleton<MySqlConnection>(options =>
+    new MySqlConnection(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        )
+    );
 
 
 var app = builder.Build();
