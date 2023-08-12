@@ -1,4 +1,7 @@
-﻿namespace _3gim.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+
+namespace _3gim.Models
 {
     public class Signup
     {

@@ -1,11 +1,13 @@
 ﻿using _3gim.Data;
 using _3gim.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace _3gim.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -34,12 +36,6 @@ namespace _3gim.Controllers
         {
             return View();
         }
-
-        public IActionResult Test()
-        {
-            return View();
-        }
-
 
     }
 }

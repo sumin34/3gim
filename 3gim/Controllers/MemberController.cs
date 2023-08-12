@@ -32,7 +32,7 @@ namespace _3gim.Controllers
         {
             var user = new _3gimMember    
 
-            { Id=model.name, UserName = model.id, Email = model.email };
+            { Name=model.name, UserName = model.id, Email = model.email };
 
             var result = await _userManager.CreateAsync(user, model.password);
 
@@ -63,6 +63,13 @@ namespace _3gim.Controllers
             }
 
             return Redirect("/member/login");
+        }
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync().Wait();
+            return Redirect("/home/index");
         }
 
     }

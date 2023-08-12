@@ -34,29 +34,24 @@
                                         <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
                                         <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">총 입고</a></th>
                                         <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">총 출고</a></th>
-                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">총 재고</a></th>
+                                        <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">현 재고</a></th>
                                     </tr>
-                                </thead>
-
-                                <!--총 입고, 총 출고 값이 변하면 실시간으로 비동기 처리가 되도록-->
-                                <tbody id="change">
-                                    <!--for(int i=0;i<Model.Count;i++){
-                                    <tr data-index="i">-->
+                                </thead>                        
+                                <tbody id="change">         
                                     @if (Model != null)
                                     {
                                         int i = 1;
 
                                         foreach (var stock in Model)
                                         {
-                                            <tr data-index="@{
-                                                i++;
-                                            }">
+                                            <tr data-index="@i">
                                                 <td>@stock.ProductID</td>
                                                 <td>@stock.ProductName</td>
                                                 <td>@stock.TotalStore</td>
                                                 <td>@stock.TotalRelease</td>
                                                 <td>@stock.CurrentQuantity</td>  
                                             </tr>
+                                            i++;
                                         }
                                     }
                                     else
@@ -69,9 +64,7 @@
                                             <td>-</td>
                                         </tr>
                                     }
-                                </tbody>
-                             
-                                   
+                                </tbody>      
                             </table>
                         </div>
                         <div class="datatable-bottom">

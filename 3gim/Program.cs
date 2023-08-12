@@ -30,6 +30,20 @@ builder.Services.AddSingleton<MySqlConnection>(options =>
         )
     );
 
+builder.Services.ConfigureApplicationCookie(opt => {
+    opt.LoginPath = "/member/login";                 
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequiredUniqueChars = 0;
+});
+
 
 var app = builder.Build();
 
@@ -42,6 +56,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -49,6 +65,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapHub<TempHub>("/TempHub");
-app.MapHub<CameraHub>("/CameraHub");
+//app.MapHub<CameraHub>("/CameraHub");
 
 app.Run("http://0.0.0.0:3333");

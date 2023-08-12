@@ -12,52 +12,7 @@
             <li class="breadcrumb-item active">주문 내역 페이지</li>
         </ol>
         <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h3 class="text-center font-weight-light my-4">출하 하기</h3>
-                    </div>
-
-                    <div class="card-body">
-
-                        <form>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3 mb-md-0">
-                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name">
-                                        <label for="inputFirstName">상품 이름</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name">
-                                        <label for="inputLastName">상품 가격</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3 mb-md-0">
-                                        <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name">
-                                        <label for="inputFirstName">상품 수량</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name">
-                                        <label for="inputLastName">생산 날짜</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 mb-0">
-                                <div class="d-grid"><a class="btn btn-primary btn-block" href="#">출하 하기</a></div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
+            
             <div class="container-fluid px-4">
 
                 <div class="card mb-4">
@@ -81,22 +36,47 @@
                                 <table id="datatablesSimple" class="datatable-table">
                                     <thead>
                                         <tr>
-                                            <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">상품 번호</a></th>
-                                            <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
-                                            <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">상품 가격</a></th>
-                                            <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">주문 수량</a></th>
-                                            <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">비고</a></th>
-
+                                            <th data-sortable="true" style="width: 10%;"><a href="#" class="datatable-sorter">주문 번호</a></th>
+                                            <th data-sortable="true" style="width: 10%;"><a href="#" class="datatable-sorter">거래처</a></th>
+                                            <th data-sortable="true" style="width: 20%;"><a href="#" class="datatable-sorter">배송지</a></th>
+                                            <th data-sortable="true" style="width: 8%;"><a href="#" class="datatable-sorter">상품 이름</a></th>
+                                            <th data-sortable="true" style="width: 8%;"><a href="#" class="datatable-sorter">주문 수량</a></th>
+                                            <th data-sortable="true" style="width: 8%;"><a href="#" class="datatable-sorter">주문 금액</a></th>
+                                            <th data-sortable="true" style="width: 36%;"><a href="#" class="datatable-sorter">비고</a></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr data-index="0">
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                            <td>몰라</td>
-                                        </tr>
+                                        @if (Model != null)
+                                        {
+                                            int i = 1;
+
+                                            foreach (var order in Model)
+                                            {
+                                                int totalprice = @order.OrderQuantity * order.PID.ProductPrice;
+                                                <tr data-index="@i">
+                                                    <td>@order.OrderNumber</td>
+                                                    <td>@order.Vendor</td>
+                                                    <td>@order.ShippingAddress</td>
+                                                    <td>@order.PID.ProductName</td>
+                                                    <td>@order.OrderQuantity</td>
+                                                    <td>@totalprice</td>
+                                                    <td>@order.Note</td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr data-index="0">
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>

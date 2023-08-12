@@ -5,6 +5,6 @@ namespace _3gim.Models
 {
     public class _3gimMember : IdentityUser
     {
-        
+        public string Name { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using _3gim.Data;
 using _3gim.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ using MySqlDataReader = MySql.Data.MySqlClient.MySqlDataReader;
 namespace _3gim.Controllers
 {
     [Route("product")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly _3gimDbContext _dbContext;
@@ -32,6 +34,7 @@ namespace _3gim.Controllers
         public IActionResult Regist()
         {
             var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
+
             return View(result);
         }
 
@@ -79,21 +82,11 @@ namespace _3gim.Controllers
         [HttpGet("order")]
         public IActionResult Order()
         {
-            var result = _dbContext.Product.Include(p => p.Release).ToList();
-            Console.WriteLine(result);
+            var result = _dbContext.Order.Include(p=> p.PID).ToList();
             return View(result);
         }
 
-        [HttpPost("order")]
-        public IActionResult Order(Order release)
-        {
-            var result = _dbContext.Order.Where(r => r.ProductID == release.ProductID).FirstOrDefault();
-            _dbContext.Add(result);
-            _dbContext.SaveChanges();
-            return View();
-        }
-
-
+ 
 
         [HttpGet("quantity")]
         public IActionResult Quantity()
@@ -135,8 +128,8 @@ namespace _3gim.Controllers
         [HttpGet("detail")]
         public IActionResult Detail()
         {
-            var result = _dbContext.Warehousing.Include(p=> p.PID).ToList();
-            
+            var result = _dbContext.Warehousing.Include(p => p.PID).ToList();
+
 
             Console.WriteLine(result);
 
