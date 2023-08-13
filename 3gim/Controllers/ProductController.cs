@@ -160,18 +160,5 @@ namespace _3gim.Controllers
         }
 
 
-
-        [HttpGet("listedit")]
-        public IActionResult ListEdit()
-        {
-            return View();
-        }
-
-
-        [HttpPost("listedit")]
-        public IActionResult ListEdit(Warehousing store)
-        {
-            return View();
-        }
     }
 }

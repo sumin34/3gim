@@ -10,29 +10,20 @@
         <div class="row">
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-dark text-white mb-4">
-                    <div class="card-header">양품 갯수</div>
-                    <div class="card-body">
-                    </div>
+                    <div style="text-align:center" class="card-header">양품 갯수</div>
+                    <div style="text-align:center" class="card-body"><p id="Supplies">0</p></div>
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-dark text-white mb-4">
-                    <div class="card-header">불량품 갯수</div>
-                    <div class="card-body">
-                    </div>
+                    <div style="text-align:center" class="card-header">불량품 갯수</div>
+                    <div style="text-align:center" class="card-body"><p id="Defects">0</p></div>
                 </div>
             </div>
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-dark text-white mb-4">
-                    <div class="card-header">
-                        실시간 온도  
-                        <button class="btn btn-dark">Up</button> 
-                        <button class="btn btn-dark">Down</button>
-                        <a href="#">More</a>
-                    </div>
-                    <div class="card-body">
-       
-                </div>
+                    <div style="text-align:center" class="card-header">실시간 온도</div>
+                    <div style="text-align:center" class="card-body"><p id="temperature">0</p></div>
             </div>
         </div>
         <div class="container row" style="float: none; margin: auto;">
@@ -53,5 +44,20 @@
     </div>
 </main>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/TempHub").build();
+
+    connection.on("ReceiveTemp", function (temp) {
+        document.getElementById("temperature").innerHTML = temp + "C";
+    });
+
+    connection.start().then(function () {
+        console.log("연결 성공");
+    }).catch(function (err) {
+        console.log("연결 실패 : " + err.toString());
+    });
+
+</script>
 
