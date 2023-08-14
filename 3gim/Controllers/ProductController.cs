@@ -34,7 +34,7 @@ namespace _3gim.Controllers
         public IActionResult Regist()
         {
             var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
-
+            
             return View(result);
         }
 
