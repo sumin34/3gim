@@ -3,12 +3,14 @@ using _3gim.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using MySql.Data.MySqlClient;
 using MySqlConnector;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Xml.Linq;
 using MySqlCommand = MySql.Data.MySqlClient.MySqlCommand;
 using MySqlConnection = MySql.Data.MySqlClient.MySqlConnection;
 using MySqlDataReader = MySql.Data.MySqlClient.MySqlDataReader;
@@ -124,15 +126,45 @@ namespace _3gim.Controllers
         }
 
 
+        public async Task<List<SelectListItem>> Filter()
+        {
+            
+            return await _dbContext.Product.Select(p => new SelectListItem()
+            {
+                Value = p.ProductName,
+                Text = p.ProductName
+            })
+                 .ToListAsync();
+        }
 
         [HttpGet("detail")]
-        public IActionResult Detail()
+        public async Task<IActionResult> Detail()
         {
-            var result = _dbContext.Warehousing.Include(p => p.PID).ToList();
+            var result = await _dbContext.Warehousing
+                        .Include(p => p.PID)
+                        .Select(w => w.PID.ProductName) // Product 모델의 상품 이름 선택
+                        .ToListAsync();
+
+            var productname = await _dbContext.Product
+                        .Select(w => w.ProductName) // Product 모델의 상품 이름 선택
+                        .ToListAsync();
+
+            //ViewBag.ProductsName = await Filter();
+            ViewBag.ProductNames = result;
+ 
+            return View(productname);
+
+        }
 
 
-            Console.WriteLine(result);
-
+        [HttpPost("detail")]
+        public IActionResult Detail(String productName)
+        {
+            var result = _dbContext.Warehousing
+                        .Include(w => w.PID)
+                        .Where(w => w.PID.ProductName == productName)
+                        .ToList();
+            
             return View(result);
         }
 
