@@ -1,11 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<_3gim.Models.Temperature>
+
+    @{}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 <script>
+    // 카메라 1
     var connection = new signalR.HubConnectionBuilder().withUrl("/CameraHub").build();
 
     connection.on("ReceiveVideo", function (message) {
@@ -18,7 +17,7 @@
     }).catch(function (err) {
         console.log("연결 실패 'BeltCamera': " + err.toString());
     });
-
+    // 카메라2
     connection.on("ReceiveVideo2", function (message) {
 
         document.getElementById("BeltViedo2").src = "data:image/jpeg;base64," + message;
@@ -29,7 +28,19 @@
     }).catch(function (err) {
         console.log("연결 실패 'BeltCamera2': " + err.toString());
     });
+    // AI카메라
+    var connection = new signalR.HubConnectionBuilder().withUrl("/CameraHub").build();
 
+    connection.on("ReceiveAI", function (message) {
+
+        document.getElementById("AIBeltViedo").src = "data:image/jpeg;base64," + message;
+    })
+
+    connection.start().then(function () {
+        console.log("연결 성공 'AICamera'");
+    }).catch(function (err) {
+        console.log("연결 실패 'AICamera': " + err.toString());
+    });
 </script>
 
 
@@ -50,7 +61,7 @@
                 <div class="card bg-white text-dark mb-4">
                     <div class="card-header">AI</div>
                     <div class="card-body">
-                        <img src="" id="" style="width:200px; height:200px;" />
+                        <img src="" id="AIBeltViedo" style="width:200px; height:200px;" />
                     </div>
                 </div>
             </div>
@@ -78,7 +89,7 @@
                             <button class="btn btn-dark">Start</button>
                             <button class="btn btn-dark">Stop</button>
                         </div>
-
+                        
                     </div>
                 </div>
                 <div class="col-xl-6 col-md-6">
@@ -88,7 +99,7 @@
                             <button class="btn btn-dark">Up</button>
                             <button class="btn btn-dark"> Down</button>
                         </div>
-
+                        
                     </div>
                 </div>
             </div>
@@ -99,8 +110,10 @@
 <script src="/js/echarts.js"></script>
 
 <script>
-
+    
     var myChart = echarts.init(document.getElementById('tempchart'));
+    var modelList = @Html.Raw(Json.Serialize(Model)); // 리스트 객체를 JSON 문자열로 직렬화
+ 
 
     //chart의 설정을 정합니다.
     var option = {
@@ -129,13 +142,19 @@
                 type: 'category',
                 boundaryGap: true,
                 data: (function () {
-                    var now = new Date();
+                    //var now = new Date();
                     var res = [];
-                    var len = 20;
-                    while (len--) {
-                        res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
-                        now = new Date(now - 2000);
+                    var len = 10;
+                    //while (len--) {
+                    //    res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
+                    //    now = new Date(now - 2000);
+                    //}
+
+                    for (var i = 0; i < modelList.length; i++) {
+                        var model = modelList[i];
+                        res.unshift(model["time"])
                     }
+                    
                     return res;
                 })()
             },
@@ -145,8 +164,8 @@
                 type: 'value',
                 scale: true,
                 name: '',
-                max: 30,
-                min: 0,
+                max: 40,
+                min: 10,
                 boundaryGap: [0.2, 0.2],
                 axisLabel: {
                     formatter: '{value} ˚C'
@@ -165,10 +184,18 @@
                 data: (function () {
                     var res = [];
                     var len = 0;
-                    while (len < 20) {
-                        res.push(5);
-                        len++;
+                    
+                    //while (len<10) {
+                    //    res.push(5);
+                    //    len++;
+                    //}
+
+                    // 리스트 순회
+                    for (var i = 0; i < modelList.length; i++) {
+                        var model = modelList[i];
+                        res.unshift(model["temp"])
                     }
+
                     return res;
                 })()
             },
@@ -178,25 +205,27 @@
     // 위에서 설정한 속성을 차트에 반영합니다.
     myChart.setOption(option);
 
+    
+
     //데이터를 생성하고 삭제합니다.
-    setInterval(function () {
-        //x축에 실시간 데이터 생성
-        var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+    //setInterval(function () {
+    //    //x축에 실시간 데이터 생성
+    //    var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
 
-        var data0 = option.series[0].data; //순수익 데이터
-
-
-        //데이터의 가장 왼쪽 값을 제거
-        data0.shift();
-        //데이터의 가장 오른쪽 값을 추가
-        data0.push(28.7);
+    //    var data0 = option.series[0].data; //순수익 데이터
 
 
-        //x축에 시간 데이터 추가
-        option.xAxis[0].data.shift();
-        option.xAxis[0].data.push(axisData);
+    //    //데이터의 가장 왼쪽 값을 제거
+    //    data0.shift();
+    //    //데이터의 가장 오른쪽 값을 추가
+    //    data0.push(28.7);
 
-        //차트에 반영
-        myChart.setOption(option);
-    }, 2100);
+
+    //    //x축에 시간 데이터 추가
+    //    option.xAxis[0].data.shift();
+    //    option.xAxis[0].data.push(axisData);
+
+    //    //차트에 반영
+    //    myChart.setOption(option);
+    //}, 2100);
 </script>

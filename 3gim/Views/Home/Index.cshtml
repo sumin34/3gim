@@ -23,7 +23,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-dark text-white mb-4">
                     <div style="text-align:center" class="card-header">실시간 온도</div>
-                    <div style="text-align:center" class="card-body"><p id="temperature">0</p></div>
+                    <div style="text-align:center" class="card-body"><p id="temperature">0˚C</p></div>
             </div>
         </div>
         <div class="container row" style="float: none; margin: auto;">
@@ -50,7 +50,7 @@
     var connection = new signalR.HubConnectionBuilder().withUrl("/TempHub").build();
 
     connection.on("ReceiveTemp", function (temp) {
-        document.getElementById("temperature").innerHTML = temp + "C";
+        document.getElementById("temperature").innerHTML = temp + "˚C";
     });
 
     connection.start().then(function () {
