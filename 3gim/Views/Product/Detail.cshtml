@@ -1,4 +1,9 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Product List";
+    var productNames = ViewBag.ProductNames as List<string>;
+}
+
+
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">재고 상세</h1>
@@ -15,14 +20,58 @@
                     </div>
                     <div class="mb-3">
                         <label for="defaultInput" class="form-label">　수정할 상품명 조회</label>
-                        <!-- <form  class="d-flex">-->
                         <div class="input-group">
                             <input type="text" id="inputBox" name="productname" class="form-control inputBox:hover" placeholder="Product Name Search">
                             <button class="btn btn-outline-info" onclick="sendRequest()"> 조회 </button>
                         </div>
                             <div id="dropdown" style="position:absolute; width:90%; background-color:white; border:1px solid #ccc;  z-index:1; display: none;"></div>
 
+
                             <script>
+                            let index = 0;
+                                function sendRequest() {
+                                    var httpRequest = new XMLHttpRequest();
+                                    httpRequest.onreadystatechange = function () {
+                                        if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                                            // 받아온 데이터를 화면에 그리는 부분
+                                        console.log("hhtprequest : " + httpRequest.responseText);
+
+                                        const obj = JSON.parse(httpRequest.responseText);
+                                        
+                                        console.log(typeof(obj));
+                                        console.log(obj.length);
+                                        for (var i = 0; i < obj.length; i++) {
+                                                var lotnum = "lotnum" + i;
+                                                var date = "date" + i;
+                                                var proname = "proname" + i;
+                                                var storenum = "storenum" + i;
+                                                var releasenum = "releasenum" + i;
+                                                var note = "note" + i;
+
+
+                                            document.getElementById(lotnum).innerHTML = obj[i]["제조번호"];
+                                            document.getElementById(date).innerHTML = obj[i]["날짜"];
+                                            document.getElementById(proname).innerHTML = obj[i]["상품이름"];
+                                            document.getElementById(storenum).innerHTML = obj[i]["입고개수"];
+                                            document.getElementById(releasenum).innerHTML = obj[i]["출고개수"];
+                                            document.getElementById(note).innerHTML = obj[i]["비고"];
+
+                                            }
+                                        }
+                                    };
+                                    // GET 방식으로 요청을 보내면서 데이터를 동시에 전달함.
+
+                                    var sendName = document.getElementById("inputBox").value;
+                                    console.log(sendName);
+
+                                    httpRequest.open("GET", "/product/detailajax?productName="+sendName, true);
+                                    httpRequest.send();
+                                }
+
+
+
+                                //-----------------비동기 연결
+
                             $(document).ready(function () {
                                 const inputBox = $("#inputBox");
                                 const dropdown = $("#dropdown");
@@ -49,16 +98,23 @@
 
                                 // 이 부분에 사용 가능한 값(옵션)을 불러오는 코드를 추가해야 합니다.
 
-                                console.log("여기?");
-                                var modelData = @Html.Raw(Model);
-                                console.log(modelData);
+                                var modelData = @Html.Raw(Json.Serialize(Model));
+                                const list = [];
 
+                                console.log("확인 : " + modelData[0]);
+                                for (var i = 0; i < modelData.length; i++) {
+                                    var model = modelData[i];
+                                    list[i] = modelData[i];
+                                }
 
+                                console.log("List : ",list);
+                                
                                 const availableValues = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
+                                //const availableValues = modelData;
 
                                 inputBox.on("input", function () {
                                     const inputText = inputBox.val().toLowerCase();
-                                    const filteredValues = availableValues.filter(value => value.toLowerCase().includes(inputText));
+                                    const filteredValues = list.filter(value => value.toLowerCase().includes(inputText));
 
                                     if (filteredValues.length > 0) {
                                         dropdown.html("");
@@ -76,22 +132,10 @@
                                     }
                                 });
                             });
-                            </script>
-                            <!--<select  id="lang">
-                                <option value=test>나오는지 확인</option>
-
-                            foreach(var product in Model)
-                            {
-                                    <option value=product>나오는지 확인</option>
-                            }
-                            </select>-->
                             
-
-
-
-
-
-
+                            
+                            </script>
+                            
 
                         <!--</form> -->
                         <div class="datatable-container">
@@ -103,21 +147,40 @@
 
                                 <thead>
                                     <tr>
-                                        <th data-sortable="true" style="width: 20%;">상품 번호</th>
-                                        <th data-sortable="true" style="width: 20%;">상품 이름</th>
-                                        <th data-sortable="true" style="width: 20%;">가격</th>
-                                        <th data-sortable="true" style="width: 20%;">유통기한</th>
+                                        <th data-sortable="true" style="width: 17%;">제조 번호</th>
+                                        <th data-sortable="true" style="width: 17%;">날짜</th>
+                                        <th data-sortable="true" style="width: 17%;">상품 이름</th>
+                                        <th data-sortable="true" style="width: 17%;">입고 개수</th>
+                                        <th data-sortable="true" style="width: 17%;">출고 개수</th>
+                                        <th data-sortable="true" style="width: 17%;">비고</th>
+
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    <tr data-index="0">
-                                        <td><div id="ProductID"></div></td>
-                                        <td><div id="ProductName"></div></td>
-                                        <td><div id="ProductPrice"></div></td>
-                                        <td><div id="ProductExp"></div></td>
-                                    </tr>
+                                        @for(var i=0; i< Model.Count;i++){
+                                            <tr data-index=@i>
+                                            @{ var lotnum = "lotnum" + i;}
+                                            @{ var date = "date" + i;}
+                                            @{ var proname = "proname" + i;}
+                                            @{ var storenum = "storenum" + i;}
+                                            @{ var leasenum = "releasenum"+i;}
+                                            @{ var note = "note" + i;}
+
+
+                                            <td><div id=@lotnum></div></td>
+                                            <td><div id=@date></div></td>
+                                            <td><div id=@proname> </div></td>
+                                            <td><div id=@storenum></div></td>
+                                            <td><div id=@leasenum></div></td>
+                                            <td><div id=@note></div></td>
+                                            </tr>
+                                        }
+
                                 </tbody>
+
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -126,51 +189,3 @@
     </div>
 
 </main>
-<!--
-<script>
-
-
-
-    function delEdit() {
-        if (confirm("정말 삭제하시겠습니까??") == true) {    //확인
-            var httpRequest = new XMLHttpRequest();
-            var productname = document.getElementById("searchproduct").value;
-            httpRequest.open("POST", "/product/delete/" + productname);
-            httpRequest.send();
-
-            document.location.href = '/product/edit';
-
-        } else {   //취소
-
-            return false;
-        }
-    }
-    function sendRequest() {
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = function () {
-            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                console.log(httpRequest.responseText);
-                var res = JSON.parse(httpRequest.responseText)
-
-                document.getElementById("ProductID").innerHTML = res.ProductID
-                document.getElementById("ProductName").innerHTML = res.ProductName
-                document.getElementById("ProductPrice").innerHTML = res.ProductPrice
-                document.getElementById("ProductExp").innerHTML = res.ProductExp
-
-                document.getElementById("ProductIDEdit").value = res.ProductID
-                document.getElementById("ProductNameEdit").value = res.ProductName
-                document.getElementById("ProductPriceEdit").value = res.ProductPrice
-                document.getElementById("ProductExpEdit").value = res.ProductExp
-
-
-            }
-        };
-        var productname = document.getElementById("searchproduct").value;
-        // GET 방식으로 요청을 보내면서 데이터를 동시에 전달함.
-        httpRequest.open("GET", "/product/read/" + productname, true);
-        httpRequest.send();
-    }
-
-</script>
-
--->
