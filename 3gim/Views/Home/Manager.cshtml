@@ -6,6 +6,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 <script>
+    // 카메라 1
     var connection = new signalR.HubConnectionBuilder().withUrl("/CameraHub").build();
 
     connection.on("ReceiveVideo", function (message) {
@@ -18,7 +19,7 @@
     }).catch(function (err) {
         console.log("연결 실패 'BeltCamera': " + err.toString());
     });
-
+    // 카메라2
     connection.on("ReceiveVideo2", function (message) {
 
         document.getElementById("BeltViedo2").src = "data:image/jpeg;base64," + message;
@@ -29,7 +30,19 @@
     }).catch(function (err) {
         console.log("연결 실패 'BeltCamera2': " + err.toString());
     });
+    // AI카메라
+    var connection = new signalR.HubConnectionBuilder().withUrl("/CameraHub").build();
 
+    connection.on("ReceiveAI", function (message) {
+
+        document.getElementById("AIBeltViedo").src = "data:image/jpeg;base64," + message;
+    })
+
+    connection.start().then(function () {
+        console.log("연결 성공 'AICamera'");
+    }).catch(function (err) {
+        console.log("연결 실패 'AICamera': " + err.toString());
+    });
 </script>
 
 
@@ -50,7 +63,7 @@
                 <div class="card bg-white text-dark mb-4">
                     <div class="card-header">AI</div>
                     <div class="card-body">
-                        <img src="" id="" style="width:200px; height:200px;" />
+                        <img src="" id="AIBeltViedo" style="width:200px; height:200px;" />
                     </div>
                 </div>
             </div>
