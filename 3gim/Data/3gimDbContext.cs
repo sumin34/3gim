@@ -17,6 +17,27 @@ namespace _3gim.Data
 
 
         public DbSet<Warehousing> Warehousing { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Warehousing>()
+                .Property(w => w.LotNumber)
+                .HasDefaultValue(23000);
+
+            modelBuilder.Entity<Warehousing>()
+                .Property(w => w.Store)
+                .HasDefaultValue(0);
+
+            modelBuilder.Entity<Warehousing>()
+               .Property(w => w.Release)
+               .HasDefaultValue(0);
+
+            modelBuilder.Entity<Warehousing>()
+               .Property(w => w.Note)
+               .HasDefaultValue("");
+
+
+            base.OnModelCreating(modelBuilder);
+        }
 
         public DbSet<Temperature> Temperature { get; set; }
 
