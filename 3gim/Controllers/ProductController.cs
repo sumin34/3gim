@@ -126,17 +126,6 @@ namespace _3gim.Controllers
         }
 
 
-        public async Task<List<SelectListItem>> Filter()
-        {
-            
-            return await _dbContext.Product.Select(p => new SelectListItem()
-            {
-                Value = p.ProductName,
-                Text = p.ProductName
-            })
-                 .ToListAsync();
-        }
-
         [HttpGet("detail")]
         public async Task<IActionResult> Detail()
         {
@@ -156,16 +145,31 @@ namespace _3gim.Controllers
 
         }
 
-
-        [HttpPost("detail")]
-        public IActionResult Detail(String productName)
+        [HttpGet("detailajax")]
+        public String DetailAjax(String productName)
         {
             var result = _dbContext.Warehousing
                         .Include(w => w.PID)
                         .Where(w => w.PID.ProductName == productName)
                         .ToList();
             
-            return View(result);
+            JArray jArray = new JArray();
+
+            for(int i = 0; i < result.Count; i++)
+            {
+                JObject jObject = new JObject(
+                    new JProperty("제조번호", result[i].Id),
+                    new JProperty("날짜", result[i].Date),
+                    new JProperty("상품이름", result[i].PID.ProductName),
+                    new JProperty("입고개수", result[i].Store),
+                    new JProperty("출고개수", result[i].Release),
+                    new JProperty("비고", result[i].Note)
+                    );
+                jArray.Add(jObject);
+            }
+
+            Console.WriteLine(jArray.ToString());
+            return jArray.ToString();
         }
 
 
