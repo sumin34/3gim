@@ -48,14 +48,29 @@
                                                 var releasenum = "releasenum" + i;
                                                 var note = "note" + i;
 
+                                            const td_tag = document.createElement('td');
+                                            const tr_tag = document.createElement('tr');
+                                            const div_tag = document.createElement('div');
 
+                                            document.tbody.appendChild(tr_tag);
+
+                                            document.tr_tag.appendChild(td_tag);
+                                            document.td_tag.appendChild(div_tag).InnerHTML = obj[i]["제조번호"];
+
+
+                                            //document.tbody.appendChild(tr_tag);
+                                            //document.tbody.appendChild(tr_tag);
+                                            //document.tbody.appendChild(tr_tag);
+
+
+                                            /*
                                             document.getElementById(lotnum).innerHTML = obj[i]["제조번호"];
                                             document.getElementById(date).innerHTML = obj[i]["날짜"];
                                             document.getElementById(proname).innerHTML = obj[i]["상품이름"];
                                             document.getElementById(storenum).innerHTML = obj[i]["입고개수"];
                                             document.getElementById(releasenum).innerHTML = obj[i]["출고개수"];
                                             document.getElementById(note).innerHTML = obj[i]["비고"];
-
+                                            */
                                             }
                                         }
                                     };
@@ -157,26 +172,27 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
-                                        @for(var i=0; i< Model.Count;i++){
-                                            <tr data-index=@i>
-                                            @{ var lotnum = "lotnum" + i;}
-                                            @{ var date = "date" + i;}
-                                            @{ var proname = "proname" + i;}
-                                            @{ var storenum = "storenum" + i;}
-                                            @{ var leasenum = "releasenum"+i;}
-                                            @{ var note = "note" + i;}
+                                <tbody id="table">
+                                    <!--
+                                        for(var i=0; i< Model.Count;i++){
+                                            <tr data-index=i>
+                                            { var lotnum = "lotnum" + i;}
+                                            { var date = "date" + i;}
+                                            { var proname = "proname" + i;}
+                                            { var storenum = "storenum" + i;}
+                                            { var leasenum = "releasenum"+i;}
+                                            { var note = "note" + i;}
 
 
-                                            <td><div id=@lotnum></div></td>
-                                            <td><div id=@date></div></td>
-                                            <td><div id=@proname> </div></td>
-                                            <td><div id=@storenum></div></td>
-                                            <td><div id=@leasenum></div></td>
-                                            <td><div id=@note></div></td>
+                                            <td><div id=lotnum></div></td>
+                                            <td><div id=date></div></td>
+                                            <td><div id=proname> </div></td>
+                                            <td><div id=storenum></div></td>
+                                            <td><div id=leasenum></div></td>
+                                            <td><div id=note></div></td>
                                             </tr>
                                         }
-
+                                        -->
                                 </tbody>
 
                             </table>
