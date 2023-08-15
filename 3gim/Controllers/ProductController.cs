@@ -138,12 +138,23 @@ namespace _3gim.Controllers
                         .Select(w => w.ProductName) // Product 모델의 상품 이름 선택
                         .ToListAsync();
 
-            //ViewBag.ProductsName = await Filter();
             ViewBag.ProductNames = result;
  
             return View(productname);
 
         }
+
+
+        [HttpPost("detail")]
+        public IActionResult Detail(Warehousing ware)
+        {
+            int productId = ware.ProductID;
+            _dbContext.Add(ware);
+             _dbContext.SaveChanges();
+
+            return RedirectToAction("Detail");
+        }
+
 
         [HttpGet("detailajax")]
         public String DetailAjax(String productName)
@@ -151,6 +162,7 @@ namespace _3gim.Controllers
             var result = _dbContext.Warehousing
                         .Include(w => w.PID)
                         .Where(w => w.PID.ProductName == productName)
+                        .OrderByDescending(w => w.Id)
                         .ToList();
             
             JArray jArray = new JArray();
@@ -158,6 +170,7 @@ namespace _3gim.Controllers
             for(int i = 0; i < result.Count; i++)
             {
                 JObject jObject = new JObject(
+                    new JProperty("상품번호", result[i].ProductID),
                     new JProperty("제조번호", result[i].Id),
                     new JProperty("날짜", result[i].Date),
                     new JProperty("상품이름", result[i].PID.ProductName),

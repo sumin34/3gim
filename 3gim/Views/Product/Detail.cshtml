@@ -28,9 +28,19 @@
 
 
                             <script>
-                            let index = 0;
+
+                                var productName;
+                                var productId;
                                 function sendRequest() {
                                     var httpRequest = new XMLHttpRequest();
+                                    var my_tbody = document.getElementById('table');
+                                    if(my_tbody.rows.length>0){
+                                        while(my_tbody.rows.length>0){
+                                            my_tbody.deleteRow(my_tbody.rows.length-1);
+                                        }
+
+
+                                    }
                                     httpRequest.onreadystatechange = function () {
                                         if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                                             // 받아온 데이터를 화면에 그리는 부분
@@ -41,37 +51,29 @@
                                         console.log(typeof(obj));
                                         console.log(obj.length);
                                         for (var i = 0; i < obj.length; i++) {
-                                                var lotnum = "lotnum" + i;
-                                                var date = "date" + i;
-                                                var proname = "proname" + i;
-                                                var storenum = "storenum" + i;
-                                                var releasenum = "releasenum" + i;
-                                                var note = "note" + i;
+                                            //tbody is = table
+                                            var my_tbody = document.getElementById('table');
+                                            var row = my_tbody.insertRow(my_tbody.rows.length);
+                                            var cell1 = row.insertCell(0);
+                                            var cell2 = row.insertCell(1);
+                                            var cell3 = row.insertCell(2);
+                                            var cell4 = row.insertCell(3);
+                                            var cell5 = row.insertCell(4);
+                                            var cell6 = row.insertCell(5);
+                                            productName = obj[i]["상품이름"];
+                                            productId = obj[i]["상품번호"];
 
-                                            const td_tag = document.createElement('td');
-                                            const tr_tag = document.createElement('tr');
-                                            const div_tag = document.createElement('div');
-
-                                            document.tbody.appendChild(tr_tag);
-
-                                            document.tr_tag.appendChild(td_tag);
-                                            document.td_tag.appendChild(div_tag).InnerHTML = obj[i]["제조번호"];
-
-
-                                            //document.tbody.appendChild(tr_tag);
-                                            //document.tbody.appendChild(tr_tag);
-                                            //document.tbody.appendChild(tr_tag);
-
-
-                                            /*
-                                            document.getElementById(lotnum).innerHTML = obj[i]["제조번호"];
-                                            document.getElementById(date).innerHTML = obj[i]["날짜"];
-                                            document.getElementById(proname).innerHTML = obj[i]["상품이름"];
-                                            document.getElementById(storenum).innerHTML = obj[i]["입고개수"];
-                                            document.getElementById(releasenum).innerHTML = obj[i]["출고개수"];
-                                            document.getElementById(note).innerHTML = obj[i]["비고"];
-                                            */
+                                            cell1.innerHTML = obj[i]["제조번호"];
+                                            cell2.innerHTML = obj[i]["날짜"];
+                                            cell3.innerHTML = obj[i]["상품이름"];
+                                            cell4.innerHTML = obj[i]["입고개수"];
+                                            cell5.innerHTML = obj[i]["출고개수"];
+                                            cell6.innerHTML = obj[i]["비고"];
+                                            
                                             }
+
+                                            
+
                                         }
                                     };
                                     // GET 방식으로 요청을 보내면서 데이터를 동시에 전달함.
@@ -124,8 +126,6 @@
 
                                 console.log("List : ",list);
                                 
-                                const availableValues = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
-                                //const availableValues = modelData;
 
                                 inputBox.on("input", function () {
                                     const inputText = inputBox.val().toLowerCase();
@@ -148,6 +148,59 @@
                                 });
                             });
                             
+                            function showModal(modalId) {
+                                const modal = document.getElementById(modalId);
+                                modal.style.display = 'block';
+                            }
+
+                            const modals = document.getElementsByClassName('modal');
+
+                            window.addEventListener('click', (event) => {
+                                for (const modal of modals) {
+                                    if (event.target === modal) {
+                                        modal.style.display = 'none';
+                                    }
+                                }
+
+                                const holdername = document.getElementById('modal_proname');
+                                holdername.setAttribute('value',productName);
+                                const hidinput = document.getElementById('hiddeninput');
+                                hidinput.setAttribute('value',productId);
+                            });
+                            
+                            $(document).ready(function () {
+                                // Store 모달의 버튼 클릭 이벤트
+                                $("#storeSaveButton").click(function () {
+                                    var formData = $("#storeForm").serialize();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/product/detail",
+                                        data: formData,
+                                        success: function (result) {
+                                            $("#store-modal").modal("hide");
+                                                // sendRequest 등의 추가 작업
+                                        }
+                                    });
+                                });
+
+                                // Release 모달의 버튼 클릭 이벤트
+                                $("#releaseSaveButton").click(function () {
+                                    var formData = $("#releaseForm").serialize();
+                                    console.log("실행");
+                                    $.ajax({
+                                        type: "Post",
+                                        url: "/product/detail",
+                                        data: formData,
+                                        success: function (result) {
+                                            $("#release-modal").modal("hide");
+                                                // sendRequest 등의 추가 작업
+                                        }
+                                    });
+                                });
+                                // 나머지 코드...
+                            });
+                            
+                            
                             
                             </script>
                             
@@ -159,46 +212,82 @@
                                 조회 상품
                             </div>
                             <table id="datatablesSimple" class="datatable-table">
-
                                 <thead>
                                     <tr>
-                                        <th data-sortable="true" style="width: 17%;">제조 번호</th>
+                                        <th data-sortable="true" style="width: 15%;">제조 번호</th>
                                         <th data-sortable="true" style="width: 17%;">날짜</th>
                                         <th data-sortable="true" style="width: 17%;">상품 이름</th>
                                         <th data-sortable="true" style="width: 17%;">입고 개수</th>
                                         <th data-sortable="true" style="width: 17%;">출고 개수</th>
-                                        <th data-sortable="true" style="width: 17%;">비고</th>
-
+                                        <th data-sortable="true" style="width: 19%;">비고</th>
                                     </tr>
                                 </thead>
 
                                 <tbody id="table">
-                                    <!--
-                                        for(var i=0; i< Model.Count;i++){
-                                            <tr data-index=i>
-                                            { var lotnum = "lotnum" + i;}
-                                            { var date = "date" + i;}
-                                            { var proname = "proname" + i;}
-                                            { var storenum = "storenum" + i;}
-                                            { var leasenum = "releasenum"+i;}
-                                            { var note = "note" + i;}
-
-
-                                            <td><div id=lotnum></div></td>
-                                            <td><div id=date></div></td>
-                                            <td><div id=proname> </div></td>
-                                            <td><div id=storenum></div></td>
-                                            <td><div id=leasenum></div></td>
-                                            <td><div id=note></div></td>
-                                            </tr>
-                                        }
-                                        -->
+                                    
                                 </tbody>
 
                             </table>
 
                         </div>
+
+                        <button id="btn_store" class="btn btn-primary btn-block" onclick="showModal('store-modal')">
+                            입고 등록
+                        </button >
+                        <button id="btn_release" class="btn btn-primary btn-block" onclick="showModal('release-modal')">
+                            출고 등록
+                        </button>
+
+                        <div id="store-modal" class="modal">
+                            <div class="modal-content">
+                            <form id="storeForm">
+                                <input type="hidden" name="ProductId"/>
+                                <div class="mb-3">
+                                날짜 : <input name="Date" placeholder="2023/08/01" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                상품명 : <input class="form-control" id="modal_proname"/>
+                                </div>
+                                <div class="mb-3">
+                                입고 : <input name="Store" class="form-control" placeholder="수량" />
+                                </div class="mb-3">
+                                <div class="mb-3">
+                                비고 : <input name="Note" class="form-control" />
+                                </div>
+                                <div style="padding-top:10px; text-align:center">
+                                    <button type="button" id="storeSaveButton" class="btn btn-primary btn-block">등록하기</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+
+                        <div id="release-modal" class="modal">
+
+                            <div class="modal-content">
+                                <form id="releaseForm">
+                                <input type="hidden" name="ProductId" id="hiddeninput"/>
+                                <div class="mb-3">
+                                날짜 : <input name="Date" placeholder="2023/08/01" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                상품명 : <input class="form-control" id="modal_proname"/>
+                                </div>
+                                <div class="mb-3">
+                                출고 : <input name="Release" class="form-control" placeholder="수량" />
+                                </div class="mb-3"> 
+                                <div class="mb-3">
+                                비고 : <input name="Note" class="form-control" />
+                                </div>
+                                <div style="padding-top:10px; text-align:center">
+                                    <button class="btn btn-primary btn-block">등록하기</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
+
+
                 </div>
             </div>
         </div>
