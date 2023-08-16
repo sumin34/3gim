@@ -156,14 +156,14 @@ namespace _3gim.Controllers
         }
 
         [HttpPost("detail")]
-        public void Detail(Warehousing ware)
+        public IActionResult Detail(Warehousing ware)
         {
             Console.WriteLine("datil post");
 
             _dbContext.Add(ware);
              _dbContext.SaveChanges();
 
-            
+            return Redirect("/product/detail");
         }
 
 
