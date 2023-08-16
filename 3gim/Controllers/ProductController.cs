@@ -134,25 +134,36 @@ namespace _3gim.Controllers
                         .Select(w => w.PID.ProductName) // Product 모델의 상품 이름 선택
                         .ToListAsync();
 
+            //var productname = await _dbContext.Product
+            //            .Select(w => w.ProductName) // Product 모델의 상품 이름 선택
+            //            .ToListAsync();
+
             var productname = await _dbContext.Product
-                        .Select(w => w.ProductName) // Product 모델의 상품 이름 선택
-                        .ToListAsync();
+            .Select(w => new Product
+            {
+                ProductID = w.ProductID,
+                ProductName = w.ProductName,
+            })
+            .ToListAsync();
 
-            ViewBag.ProductNames = result;
- 
             return View(productname);
-
         }
 
+        private int GetProductIdByProductName(string productName)
+        {
+            var product = _dbContext.Product.FirstOrDefault(p => p.ProductName == productName);
+            return product?.ProductID ?? -1; // Return -1 if product not found
+        }
 
         [HttpPost("detail")]
-        public IActionResult Detail(Warehousing ware)
+        public void Detail(Warehousing ware)
         {
-            int productId = ware.ProductID;
+            Console.WriteLine("datil post");
+
             _dbContext.Add(ware);
              _dbContext.SaveChanges();
 
-            return RedirectToAction("Detail");
+            
         }
 
 
@@ -162,7 +173,7 @@ namespace _3gim.Controllers
             var result = _dbContext.Warehousing
                         .Include(w => w.PID)
                         .Where(w => w.PID.ProductName == productName)
-                        .OrderByDescending(w => w.Id)
+                        .OrderBy(w => w.Date)
                         .ToList();
             
             JArray jArray = new JArray();
@@ -171,7 +182,7 @@ namespace _3gim.Controllers
             {
                 JObject jObject = new JObject(
                     new JProperty("상품번호", result[i].ProductID),
-                    new JProperty("제조번호", result[i].Id),
+                    new JProperty("제조번호", result[i].LotNumber),
                     new JProperty("날짜", result[i].Date),
                     new JProperty("상품이름", result[i].PID.ProductName),
                     new JProperty("입고개수", result[i].Store),
