@@ -2862,7 +2862,7 @@ textarea.form-control-lg {
   --bs-btn-font-family: ;
   --bs-btn-font-size: 1rem;
   --bs-btn-font-weight: 400;
-  --bs-btn-line-height: 1;
+  --bs-btn-line-height: 2;
   --bs-btn-color: #212529;
   --bs-btn-bg: transparent;
   --bs-btn-border-width: 1px;
