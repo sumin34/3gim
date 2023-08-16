@@ -207,6 +207,8 @@ namespace _3gim.Controllers
 
             return Redirect("/product/edit");
         }
+
+
         [HttpGet("Supplies")]
         public int Supplies()
         {
