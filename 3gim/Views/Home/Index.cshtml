@@ -59,5 +59,39 @@
         console.log("연결 실패 : " + err.toString());
     });
 
+    function Suppliescount() {
+        // 서버로부터 숫자 값을 요청
+        fetch('/product/Supplies') // 서버의 엔드포인트 URL로 수정해야 함
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('Supplies').textContent = data;
+            })
+            .catch(error => {
+                console.error('Failed to fetch number', error);
+            });
+
+        // 일정 시간 후에 다시 함수 호출 (1초 후)
+        setTimeout(Suppliescount, 1000); // 1초마다 숫자값 표시를 업데이트
+    }
+
+    function Defectscount() {
+        // 서버로부터 숫자 값을 요청
+        fetch('/product/Defects') // 서버의 엔드포인트 URL로 수정해야 함
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('Defects').textContent = data;
+            })
+            .catch(error => {
+                console.error('Failed to fetch number', error);
+            });
+
+        // 일정 시간 후에 다시 함수 호출 (1초 후)
+        setTimeout(Defectscount, 1000); // 1초마다 숫자값 표시를 업데이트
+    }
+
+    Suppliescount();
+    Defectscount();
+
+
 </script>
 

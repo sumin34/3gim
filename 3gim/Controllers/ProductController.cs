@@ -36,7 +36,7 @@ namespace _3gim.Controllers
         public IActionResult Regist()
         {
             var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
-            
+
             return View(result);
         }
 
@@ -84,11 +84,11 @@ namespace _3gim.Controllers
         [HttpGet("order")]
         public IActionResult Order()
         {
-            var result = _dbContext.Order.Include(p=> p.PID).ToList();
+            var result = _dbContext.Order.Include(p => p.PID).ToList();
             return View(result);
         }
 
- 
+
 
         [HttpGet("quantity")]
         public IActionResult Quantity()
@@ -139,7 +139,7 @@ namespace _3gim.Controllers
                         .ToListAsync();
 
             ViewBag.ProductNames = result;
- 
+
             return View(productname);
 
         }
@@ -150,7 +150,7 @@ namespace _3gim.Controllers
         {
             int productId = ware.ProductID;
             _dbContext.Add(ware);
-             _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
             return RedirectToAction("Detail");
         }
@@ -164,10 +164,10 @@ namespace _3gim.Controllers
                         .Where(w => w.PID.ProductName == productName)
                         .OrderByDescending(w => w.Id)
                         .ToList();
-            
+
             JArray jArray = new JArray();
 
-            for(int i = 0; i < result.Count; i++)
+            for (int i = 0; i < result.Count; i++)
             {
                 JObject jObject = new JObject(
                     new JProperty("상품번호", result[i].ProductID),
@@ -207,7 +207,40 @@ namespace _3gim.Controllers
 
             return Redirect("/product/edit");
         }
+        [HttpGet("Supplies")]
+        public int Supplies()
+        {
+            int quantity = 0;
+            var result = _dbContext.Supplies.ToList();
+            if(result.Count == 0)
+            {
+                return quantity;
+            }
+            else
+            {
+                var result2 = _dbContext.Supplies.First();
+                quantity = result2.Quantity;
+                return quantity;
+            }
+           
+        }
 
+        [HttpGet("Defects")]
+        public int Defects()
+        {
+            int quantity = 0;
+            var result = _dbContext.Defects.ToList();
+            if (result.Count == 0)
+            {
+                return quantity;
+            }
+            else
+            {
+                var result2 = _dbContext.Defects.First();
+                quantity = result2.Quantity;
+                return quantity;
+            }
 
+        }
     }
 }

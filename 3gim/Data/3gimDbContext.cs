@@ -41,6 +41,9 @@ namespace _3gim.Data
 
         public DbSet<Temperature> Temperature { get; set; }
 
+        public DbSet<Defects> Defects { get; set; }
+        public DbSet<Supplies> Supplies { get; set; }
+
 
     }
 }
