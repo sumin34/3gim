@@ -34,7 +34,7 @@
                             Temperature
                         </div>
                         <div class="card-body">
-                            <div id="tempchart" style="width:100%;height:400px;"></div>
+                            <div id="tempchart" style="align-content:center; width:100%;height:400px;"></div>
                         </div>
                     </div>
 
@@ -58,8 +58,10 @@
 <script src="/js/echarts.js"></script>
 
     <script>
+    var myChart = echarts.init(document.getElementById('tempchart'));
 
-        var myChart = echarts.init(document.getElementById('tempchart'));
+    window.onresize = myChart.resize;
+
     var modelList = @Html.Raw(Json.Serialize(Model)); // 리스트 객체를 JSON 문자열로 직렬화
 
 
@@ -77,6 +79,7 @@
                 }
             }
         },
+        
         legend: {
             data: ['온도']
         },
@@ -153,12 +156,37 @@
     // 위에서 설정한 속성을 차트에 반영합니다.
     myChart.setOption(option);
 
+    //데이터를 생성하고 삭제합니다.
+    setInterval(function () {
+        //x축에 실시간 데이터 생성
+        var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+
+        var data0 = option.series[0].data; //순수익 데이터
+
+
+        //데이터의 가장 왼쪽 값을 제거
+        data0.shift();
+        //데이터의 가장 오른쪽 값을 추가
+        //data0.push(28.7);
+        data0.push(test);
+
+
+        //x축에 시간 데이터 추가
+        option.xAxis[0].data.shift();
+        option.xAxis[0].data.push(axisData);
+
+        //차트에 반영
+        myChart.setOption(option);
+    }, 2100);
+
 
     var connection = new signalR.HubConnectionBuilder().withUrl("/TempHub").build();
-
+    var test;
     connection.on("ReceiveTemp", function (temp) {
         document.getElementById("temperature").innerHTML = temp + "˚C";
+        test = temp;
     });
+
 
     connection.start().then(function () {
         console.log("연결 성공");

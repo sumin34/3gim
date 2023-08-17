@@ -78,7 +78,7 @@
             <div class="col-xl-6 col-md-6">
                 <div class="card bg-white text-dark mb-4">
                     <div class="card-header">Temperature</div>
-                    <div class="card-body"><div id="tempchart" style="width: 600px;height:400px;"></div></div>
+                    <div class="card-body"><div id="tempchart" style="width: 100%; height:400px;"></div></div>
                 </div>
             </div>
             <div class="row">
@@ -112,6 +112,7 @@
 <script>
     
     var myChart = echarts.init(document.getElementById('tempchart'));
+    window.onresize = myChart.resize;
     var modelList = @Html.Raw(Json.Serialize(Model)); // 리스트 객체를 JSON 문자열로 직렬화
  
 
@@ -207,7 +208,7 @@
 
     
 
-    //데이터를 생성하고 삭제합니다.
+    ////데이터를 생성하고 삭제합니다.
     //setInterval(function () {
     //    //x축에 실시간 데이터 생성
     //    var axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
