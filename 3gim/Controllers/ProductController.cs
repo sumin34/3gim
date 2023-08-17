@@ -36,7 +36,7 @@ namespace _3gim.Controllers
         public IActionResult Regist()
         {
             var result = _dbContext.Product.OrderBy(product => product.ProductID).ToList();
-            
+
             return View(result);
         }
 
@@ -84,11 +84,11 @@ namespace _3gim.Controllers
         [HttpGet("order")]
         public IActionResult Order()
         {
-            var result = _dbContext.Order.Include(p=> p.PID).ToList();
+            var result = _dbContext.Order.Include(p => p.PID).ToList();
             return View(result);
         }
 
- 
+
 
         [HttpGet("quantity")]
         public IActionResult Quantity()
@@ -161,7 +161,7 @@ namespace _3gim.Controllers
             Console.WriteLine("datil post");
 
             _dbContext.Add(ware);
-             _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
 
             return Redirect("/product/detail");
         }
@@ -175,10 +175,10 @@ namespace _3gim.Controllers
                         .Where(w => w.PID.ProductName == productName)
                         .OrderBy(w => w.Date)
                         .ToList();
-            
+
             JArray jArray = new JArray();
 
-            for(int i = 0; i < result.Count; i++)
+            for (int i = 0; i < result.Count; i++)
             {
                 JObject jObject = new JObject(
                     new JProperty("상품번호", result[i].ProductID),
@@ -220,5 +220,40 @@ namespace _3gim.Controllers
         }
 
 
+        [HttpGet("Supplies")]
+        public int Supplies()
+        {
+            int quantity = 0;
+            var result = _dbContext.Supplies.ToList();
+            if(result.Count == 0)
+            {
+                return quantity;
+            }
+            else
+            {
+                var result2 = _dbContext.Supplies.First();
+                quantity = result2.Quantity;
+                return quantity;
+            }
+           
+        }
+
+        [HttpGet("Defects")]
+        public int Defects()
+        {
+            int quantity = 0;
+            var result = _dbContext.Defects.ToList();
+            if (result.Count == 0)
+            {
+                return quantity;
+            }
+            else
+            {
+                var result2 = _dbContext.Defects.First();
+                quantity = result2.Quantity;
+                return quantity;
+            }
+
+        }
     }
 }
