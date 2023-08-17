@@ -25,7 +25,26 @@ namespace _3gim.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            _mySqlConnection.Close();
+            _mySqlConnection.Open();
+            string sql = "SELECT * FROM temperature ORDER BY time desc LIMIT 10";
+            MySqlCommand cmd = new MySqlCommand(sql, _mySqlConnection);
+            MySqlDataReader result = cmd.ExecuteReader();
+
+            List<Temperature> temperatures = new List<Temperature>();
+
+            while (result.Read())
+            {
+                Temperature temp = new Temperature();
+                temp.Date = result.GetString("date");
+                temp.Time = result.GetString("time");
+                temp.Temp = result.GetFloat("temp");
+
+                temperatures.Add(temp);
+            }
+
+            _mySqlConnection.Close();
+            return View(temperatures);
         }
 
 
