@@ -201,6 +201,60 @@
                             });
                             
                             
+
+
+
+                            function sendRequest2() {
+                                    productName = document.getElementById("inputBox").value;
+                                    var httpRequest = new XMLHttpRequest();
+                                    var my_tbody = document.getElementById('table');
+                                    if(my_tbody.rows.length>0){
+                                        while(my_tbody.rows.length>0){
+                                            my_tbody.deleteRow(my_tbody.rows.length-1);
+                                        }
+                                    }
+                                    httpRequest.onreadystatechange = function () {
+                                        if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                                            // 받아온 데이터를 화면에 그리는 부분
+                                        console.log("hhtprequest : " + httpRequest.responseText);
+
+                                        const obj = JSON.parse(httpRequest.responseText);
+                                        
+                                        console.log(typeof(obj));
+                                        console.log(obj.length);
+                                        for (var i = 0; i < obj.length; i++) {
+                                            //tbody is = table
+                                            var my_tbody = document.getElementById('table');
+                                            var row = my_tbody.insertRow(my_tbody.rows.length);
+                                            var cell1 = row.insertCell(0);
+                                            var cell2 = row.insertCell(1);
+                                            var cell3 = row.insertCell(2);
+                                            var cell4 = row.insertCell(3);
+                                            var cell5 = row.insertCell(4);
+                                            var cell6 = row.insertCell(5);
+
+
+                                            productId = obj[i]["상품번호"];
+
+                                            cell1.innerHTML = obj[i]["제조번호"];
+                                            cell2.innerHTML = obj[i]["날짜"];
+                                            cell3.innerHTML = obj[i]["상품이름"];
+                                            cell4.innerHTML = obj[i]["입고개수"];
+                                            cell5.innerHTML = obj[i]["출고개수"];
+                                            cell6.innerHTML = obj[i]["비고"];
+                                            
+                                            }
+                                        }
+                                    };
+                                    // GET 방식으로 요청을 보내면서 데이터를 동시에 전달함.
+
+                                    var sendName = document.getElementById("inputBox").value;
+                                    console.log(sendName);
+
+                                    httpRequest.open("GET", "/product/detailajax?productName="+sendName, true);
+                                    httpRequest.send();
+                                }
+
                             </script>
                             
 
@@ -253,7 +307,7 @@
                                 비고 : <input name="Note" class="form-control" />
                                 </div>
                                 <div style="padding-top:10px; text-align:center">
-                                    <button id="storeSaveButton" class="btn btn-primary btn-block">등록</button>
+                                    <button id="storeSaveButton" class="btn btn-primary btn-block" onclick="sendRequest2">등록</button>
                                 </div>
                             </div>
                             </form>
