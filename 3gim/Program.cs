@@ -67,7 +67,7 @@ app.MapControllerRoute(
 app.MapHub<TempHub>("/TempHub");
 app.MapHub<CameraHub>("/CameraHub");
 app.MapHub<ProduceHub>("/ProduceHub");
-//app.MapHub<BeltHub>("/BeltHub");
+app.MapHub<BeltHub>("/BeltHub");
 
 
 app.Run("http://0.0.0.0:3333");
