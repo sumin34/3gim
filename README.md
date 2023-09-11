@@ -9,6 +9,7 @@
 
       
 # 인프라 구조도
+상세 내용 https://blog.naver.com/soo44soo44/223171855180
 ![image](https://github.com/sumin34/3gim/assets/73535327/1f345e7d-4a15-4837-96d4-28db2299dcd5)
 
 
