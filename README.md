@@ -1,5 +1,15 @@
 # 3gim mes 시스템 프로젝트
 
+## 🤼‍♂️팀원
+
+Team Leader : 🐯**방수민**
+
+Frontend : 🐶 **김수진,홍미지**
+
+infra/backend/frontend : 🐺 **김태현,방수민**
+
+AI : 🐱 **홍미지**
+
       
 # 인프라 구조도
 상세 내용 https://blog.naver.com/soo44soo44/223171855180
@@ -14,10 +24,6 @@
 
 > [한국품질재단] 스마트팩토리SW개발과정
 
-
-🎬[Demo 시연영상](http://link)
-(https://link)  
-📃[프로젝트 회고록](블로그주소) 
 
 <br>
 
@@ -79,16 +85,5 @@ JWT를 이용한 토큰 인증 방식
 ### [인공지능 github](http://www.naver.com) <- 클릭하면 이동됩니다!
 
 ### [IoT github](http://www.naver.com) <- 클릭하면 이동됩니다!
-
-
-## 🤼‍♂️팀원
-
-Team Leader : 🐯**방수민**
-
-Frontend : 🐶 **김수진,홍미지**
-
-infra/backend/frontend : 🐺 **김태현,방수민**
-
-AI : 🐱 **홍미지**
 
 
