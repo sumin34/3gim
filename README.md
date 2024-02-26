@@ -74,16 +74,3 @@ JWT를 이용한 토큰 인증 방식
 
 <br>
 
-
-
-## 🔧 각 프로젝트 상세 설명
-
-### [프론트 엔드 github](http://www.naver.com) <- 클릭하면 이동됩니다!
-
-### [백 엔드 github](http://www.naver.com) <- 클릭하면 이동됩니다!
-
-### [인공지능 github](http://www.naver.com) <- 클릭하면 이동됩니다!
-
-### [IoT github](http://www.naver.com) <- 클릭하면 이동됩니다!
-
-
